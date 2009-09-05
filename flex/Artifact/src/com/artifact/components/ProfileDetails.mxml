@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"  width="404" height="168">
+	<mx:Script>
+		<![CDATA[
+			override public function set data(value:Object):void{
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:Label y="{this.height*10/100}" text="MYNAME"  horizontalCenter="0" fontSize="18" maxWidth="{this.width*80/100}"/>
+	
+	<mx:Label y="{this.height*35/100}" text="GOLD :" left="50" id="lblGoldPrefix" fontSize="13"/>
+	<mx:Label x="{lblGoldPrefix.x + lblGoldPrefix.width + 5}" y="{this.height*35/100}" text="10000" fontSize="13" id="lblGold"/>
+	
+	<mx:Label  left="50" y="{this.height*50/100}" text="Level :" fontSize="13" id="lblLevelPrefix"/>
+	<mx:Label  y="{this.height*50/100}" text="10" fontSize="13" id="lblLevel" x="{lblLevelPrefix.x + lblLevelPrefix.width + 5}"/>
+	
+	<mx:Button horizontalCenter="0" y="{this.height*65/100}" label="LEVEL UP" />
+</mx:Canvas>

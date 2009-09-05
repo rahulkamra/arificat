@@ -6,9 +6,10 @@
 	<!--Left Panel-->
 		<mx:VBox id="vbxLeft" height="100%"  width="22%" paddingTop="10" paddingBottom="10" verticalGap="{vbxLeft.height*2/100}">
 			<mx:Canvas styleName="frame" height="32%" width="100%" id="cvsProfile" backgroundSize="100%">
+				<components:ProfileDetails width="100%" height="100%"/>
 			</mx:Canvas>
-			<mx:Panel height="67%" width="100%" id="cvsFriends" title="Friends" textAlign="center">
-				<components:FriendsList width="100%" height="100%" itemRenderer="com.artifact.components.FriendListIR"/>
+			<mx:Panel height="67%" width="100%" id="cvsFriends" title="Friends" textAlign="center" >
+				<components:FriendsList width="100%" height="100%" itemRenderer="com.artifact.components.FriendListIR" columnCount="4"/>
 			</mx:Panel>
 		</mx:VBox>
 		
@@ -18,10 +19,10 @@
 			</mx:Canvas>
 			
 			<mx:Panel  width="100%" height="44%"  title="Current Search Parties">
-				
+				<components:CurrentSearchParties width="100%" height="100%" />
 			</mx:Panel>
 			<mx:Panel  width="100%" height="34%" title="Friends Search Parties">
-				
+				<components:FriendSearchParties width="100%" height="100%"/> 
 			</mx:Panel>
 		</mx:VBox>
 		

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TileList xmlns:mx="http://www.adobe.com/2006/mxml" >
+<mx:TileList xmlns:mx="http://www.adobe.com/2006/mxml" dataProvider="{MockController.getFriendsList()}" >
 
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.controller.MockController;
 						
 		]]>
 	</mx:Script>
