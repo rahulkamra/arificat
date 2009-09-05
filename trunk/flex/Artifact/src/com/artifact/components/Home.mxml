@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" styleName="loginApp" xmlns:components="com.artifact.components.*">
+	<mx:HBox width="100%" height="100%" horizontalGap="{width*1/100}">
+	<mx:Spacer width="1%"/>
+	
+	<!--Left Panel-->
+		<mx:VBox id="vbxLeft" height="100%"  width="22%" paddingTop="10" paddingBottom="10" verticalGap="{vbxLeft.height*2/100}">
+			<mx:Canvas styleName="frame" height="32%" width="100%" id="cvsProfile" backgroundSize="100%">
+			</mx:Canvas>
+			<mx:Panel height="67%" width="100%" id="cvsFriends" title="Friends" textAlign="center">
+				<components:FriendsList width="100%" height="100%" itemRenderer="com.artifact.components.FriendListIR"/>
+			</mx:Panel>
+		</mx:VBox>
+		
+	<!--Middle Panel-->	
+		<mx:VBox id="vbxMiddle" height="100%"  width="45%" verticalGap="{vbxMiddle.height*2/100}" paddingTop="10" paddingBottom="10">
+			<mx:Canvas width="100%" height="21%" styleName="startButton">
+			</mx:Canvas>
+			
+			<mx:Panel  width="100%" height="44%"  title="Current Search Parties">
+				
+			</mx:Panel>
+			<mx:Panel  width="100%" height="34%" title="Friends Search Parties">
+				
+			</mx:Panel>
+		</mx:VBox>
+		
+		<!-- Right Panel -->
+		<mx:VBox id="vbsMyArtifacts" height="100%" width="30%" paddingTop="10" paddingBottom="10">
+			<mx:Panel  width="100%" height="99%" title="My Artifacts" textAlign="center">
+			</mx:Panel>
+		</mx:VBox>
+	</mx:HBox>
+</mx:Canvas>
