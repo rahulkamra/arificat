@@ -15,6 +15,7 @@ Button{
 	selectedOverSkin: Embed(source="../images/button.png");
 	selectedDownSkin: Embed(source="../images/button.png");
 	selectedDisabledSkin: Embed(source="../images/button.png");
+	color: #FFFFFF;
 	
 }
 Panel {
@@ -48,3 +49,17 @@ Panel {
 	backgroundImage: Embed(source="../images/frame.png");
 	
 }
+TileList{
+	backgroundColor: #483D30;
+	rollOverColor: #6A5946;
+	selectionColor: #2D2627;
+}
+Label{
+	color: #49A7FF;
+	
+}
+
+ProgressBar{
+	trackSkin: Embed(source="../images/transparent.png");
+}
+
