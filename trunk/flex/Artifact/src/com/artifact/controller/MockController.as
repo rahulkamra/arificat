@@ -1,5 +1,6 @@
 package com.artifact.controller
 {
+	import com.artifact.model.AddSkillModel;
 	import com.artifact.model.ArtifactModel;
 	import com.artifact.model.CurrentSearchPartiesModel;
 	import com.artifact.model.FriendSearchPartiesModel;
@@ -126,6 +127,19 @@ package com.artifact.controller
 			tempArtifact2.artifactName="Klen's Dagger of Escape"
 			
 			return new ArrayCollection([tempArtifact,tempArtifact1,tempArtifact2]);
+		}
+		
+		public static 	function giveDummySkillData():AddSkillModel{
+			var skillData:AddSkillModel=new AddSkillModel;
+			
+			skillData.buyLevel=2;
+			skillData.spyLevel=4;
+			skillData.currentLevel=21;
+			skillData.shareLevel=2;
+			skillData.experiencePointsAvailable=0;
+			skillData.scoutLevel=4;
+			
+			return skillData;
 		}
 
 	}

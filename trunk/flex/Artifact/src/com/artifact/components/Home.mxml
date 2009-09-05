@@ -33,4 +33,5 @@
 			</mx:Panel>
 		</mx:VBox>
 	</mx:HBox>
+	<mx:Script source="../includes/HomeInclude.as"/>
 </mx:Canvas>
