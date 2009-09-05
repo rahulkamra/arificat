@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:components="com.artifact.components.*"  horizontalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import com.artifact.controller.MockController;
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%" paddingTop="10" horizontalScrollPolicy="off">
+		<mx:Repeater dataProvider="{MockController.createCurrSearchPartyObj()}" id="friendSearchPartiesRepeater">
+			
+		</mx:Repeater>
+	</mx:VBox>
+</mx:Canvas>
