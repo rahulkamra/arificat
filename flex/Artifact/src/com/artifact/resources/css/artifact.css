@@ -16,6 +16,8 @@ Button{
 	selectedDownSkin: Embed(source="../images/button.png");
 	selectedDisabledSkin: Embed(source="../images/button.png");
 	color: #FFFFFF;
+	textRollOverColor: #FFFFFF;
+	textSelectedColor: #FFFFFF;
 	
 }
 Panel {
@@ -44,6 +46,16 @@ Panel {
 	border-skin: Embed(source="../images/button.png", scaleGridLeft=22, scaleGridRight=24, scaleGridTop=18,scaleGridBottom=20);
 	border-style:solid;
 	corner-radius:8;
+	upSkin: Embed(source="../images/but_normal.png");
+	overSkin: Embed(source="../images/but_over.png");
+	downSkin: Embed(source="../images/but_normal.png");
+	disabledSkin: Embed(source="../images/but_normal.png");
+	selectedUpSkin: Embed(source="../images/but_normal.png");
+	selectedOverSkin: Embed(source="../images/but_normal.png");
+	selectedDownSkin: Embed(source="../images/but_normal.png");
+	selectedDisabledSkin: Embed(source="../images/but_normal.png");
+	textRollOverColor: #FFFFFF;
+	textSelectedColor: #FFFFFF;
 }
 .frame{
 	backgroundImage: Embed(source="../images/frame.png");
@@ -55,7 +67,7 @@ TileList{
 	selectionColor: #2D2627;
 }
 Label{
-	color: #49A7FF;
+	color: #FFFFFF;
 	
 }
 
