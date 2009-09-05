@@ -15,8 +15,8 @@
 		
 	<!--Middle Panel-->	
 		<mx:VBox id="vbxMiddle" height="100%"  width="45%" verticalGap="{vbxMiddle.height*2/100}" paddingTop="10" paddingBottom="10">
-			<mx:Canvas width="100%" height="21%" styleName="startButton">
-			</mx:Canvas>
+			<mx:Button width="100%" height="21%" styleName="startButton" label="Search New Artifact Search Party" fontSize="18">
+			</mx:Button>
 			
 			<mx:Panel  width="100%" height="44%"  title="Current Search Parties">
 				<components:CurrentSearchParties width="100%" height="100%" />
@@ -29,6 +29,7 @@
 		<!-- Right Panel -->
 		<mx:VBox id="vbsMyArtifacts" height="100%" width="30%" paddingTop="10" paddingBottom="10">
 			<mx:Panel  width="100%" height="99%" title="My Artifacts" textAlign="center">
+				<components:Artifacts width="100%" height="100%"/>
 			</mx:Panel>
 		</mx:VBox>
 	</mx:HBox>
