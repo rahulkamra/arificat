@@ -67,11 +67,32 @@ TileList{
 	selectionColor: #2D2627;
 }
 Label{
+	color: #ffffff;
+	
+}
+
+TextArea{
 	color: #FFFFFF;
 	
 }
 
 ProgressBar{
 	trackSkin: Embed(source="../images/transparent.png");
+}
+
+.search{
+	backgroundImage: Embed(source="../images/searchbg.png");
+}
+
+.close{
+	upSkin: Embed(source="../images/cross-normal.png");
+	overSkin: Embed(source="../images/cross.png");
+	downSkin: Embed(source="../images/cross.png");
+	disabledSkin: Embed(source="../images/cross.png");
+	selectedUpSkin: Embed(source="../images/cross.png");
+	selectedOverSkin: Embed(source="../images/cross.png");
+	selectedDownSkin: Embed(source="../images/cross.png");
+	selectedDisabledSkin: Embed(source="../images/cross.png");
+	
 }
 
