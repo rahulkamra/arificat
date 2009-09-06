@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="444" height="500" styleName="loginApp">
+	<mx:Script>
+		<![CDATA[
+			import com.artifact.controller.MockController;
+		]]>
+	</mx:Script>
+	<mx:VBox width="424" height="382" x="10" y="62">
+		
+	<mx:List  width="100%" dataProvider="{MockController.giveArtifactData()}" itemRenderer="com.artifact.components.NewSearchPartyIR" >
+	</mx:List>
+	</mx:VBox>
+	<mx:Button label="Start" right="11" bottom="14"/>
+	<mx:Button x="402" y="20" styleName="close" click="closeMe()"/>
+	<mx:Text x="27" y="19" text="Start New Search Party" fontWeight="bold" fontSize="18"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			
+			public function closeMe():void{
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+</mx:Canvas>

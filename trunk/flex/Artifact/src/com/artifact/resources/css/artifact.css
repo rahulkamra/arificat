@@ -71,6 +71,16 @@ Label{
 	
 }
 
+List {
+   backgroundColor: #483d30;
+   useRollOver: true;
+   rollOverColor: #6a5946;
+   textRollOverColor: #ffffff;
+   borderColor: #b7babc;
+   selectionColor: #2d2627;
+}
+
+
 TextArea{
 	color: #FFFFFF;
 	
