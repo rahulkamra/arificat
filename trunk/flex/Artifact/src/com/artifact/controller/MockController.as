@@ -4,6 +4,8 @@ package com.artifact.controller
 	import com.artifact.model.ArtifactModel;
 	import com.artifact.model.CurrentSearchPartiesModel;
 	import com.artifact.model.FriendSearchPartiesModel;
+	import com.artifact.model.QuestionModel;
+	import com.artifact.model.SearchModel;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -140,6 +142,50 @@ package com.artifact.controller
 			skillData.scoutLevel=4;
 			
 			return skillData;
+		}
+		
+		public static function giveSearchData():SearchModel{
+			var searchModel:SearchModel=new SearchModel;
+			searchModel.friendsNumber=10;
+			searchModel.artifactDesc="Its a description ok ok its a desc"
+			searchModel.progress=70;
+			searchModel.artifactLvl=12;
+			searchModel.artifactName="Doondha"
+			return searchModel;
+		}
+		
+		public static function giveQuestions():ArrayCollection{
+			var question1:QuestionModel=new QuestionModel;
+			var question2:QuestionModel=new QuestionModel;
+			var question3:QuestionModel=new QuestionModel;
+			var question4:QuestionModel=new QuestionModel;
+			var question5:QuestionModel=new QuestionModel;
+			question1.question="Who lets the dog out !!"
+			question1.optionOne="Whoo";
+			question1.optionTwo="Whoo Whoo";
+			question1.optionThree="Whoo Whoo Whoo";
+			
+			question2.question="Who lets the dog out !!"
+			question2.optionOne="Whoo";
+			question2.optionTwo="Whoo Whoo";
+			question2.optionThree="Whoo Whoo Whoo";
+			
+			question3.question="Who lets the dog out !!"
+			question3.optionOne="Whoo";
+			question3.optionTwo="Whoo Whoo";
+			question3.optionThree="Whoo Whoo Whoo";
+			
+			question4.question="Who lets the dog out !!"
+			question4.optionOne="Whoo";
+			question4.optionTwo="Whoo Whoo";
+			question4.optionThree="Whoo Whoo Whoo";
+			
+			question5.question="Who lets the dog out !!"
+			question5.optionOne="Whoo";
+			question5.optionTwo="Whoo Whoo";
+			question5.optionThree="Whoo Whoo Whoo";
+
+			return new ArrayCollection([question1,question2,question3,question4,question5]);
 		}
 
 	}
