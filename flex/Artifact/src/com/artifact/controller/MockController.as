@@ -187,6 +187,25 @@ package com.artifact.controller
 
 			return new ArrayCollection([question1,question2,question3,question4,question5]);
 		}
+		
+		
+		public static function giveArtifactData():ArrayCollection{
+				var one:Object=new Object;
+				one.name="Divine Rapier"
+				one.desc="A powerful staff used by a martial arts master. Grants +80 damage, 15% increased attack speed, True Strike (causes your attacks to never miss) and a 35% chance to deal 100 bonus damage on every attack";
+				
+				var two:Object=new Object;
+				two.name="The Butterfly"
+				two.desc="The Butterfly is a blade that was magically created for use in the War of the Magi, but never used. Only recently recovered from the Avalan vault, it grants its bearer +30 Agility, +30 damage, +30% in";
+				var three:Object=new Object;
+				three.name="Helm of the Dominator"
+				three.desc="The powerful headpiece of a dead necromancer. Gives +5 armor, +20 damage, 15% life steal, and the ability to Dominate creeps.";
+				var four:Object=new Object;
+				four.name="Flying Courier"
+				four.desc="Creates a small very fast flying unit that can carry items to and from your base. If it dies the items will fall to the ground. Has magic immunity, hitpoints and armor. Cannot carry Gem. Can cast Burs";
+				
+				return new ArrayCollection([one,two,three,four]);
+			}
 
 	}
 }
