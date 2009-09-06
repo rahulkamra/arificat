@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TileList xmlns:mx="http://www.adobe.com/2006/mxml" dataProvider="{MockController.getFriendsList()}" >
+<mx:TileList xmlns:mx="http://www.adobe.com/2006/mxml"  itemRenderer="com.artifact.components.FriendListIR">
 
 	<mx:Script>
 		<![CDATA[
