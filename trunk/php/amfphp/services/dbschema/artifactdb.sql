@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 06, 2009 at 12:59 PM
+-- Generation Time: Sep 06, 2009 at 07:27 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.5
 
@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `currentsearchparty` (
   `artifactid` int(10) unsigned NOT NULL default '0',
   `artifactlvl` int(10) unsigned NOT NULL default '0',
   `progress` int(10) unsigned NOT NULL default '0',
+  `isactive` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `FK_currentsearchparty_1` (`userid`),
   KEY `FK_currentsearchparty_2` (`artifactid`)
@@ -112,6 +113,28 @@ CREATE TABLE IF NOT EXISTS `gameprofile` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gameprogress`
+--
+
+CREATE TABLE IF NOT EXISTS `gameprogress` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `cspid` int(10) unsigned NOT NULL default '0',
+  `friendid` int(10) unsigned NOT NULL default '0',
+  `progresstypeid` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `FK_gameprogress_1` (`friendid`),
+  KEY `FK_gameprogress_2` (`cspid`),
+  KEY `FK_gameprogress_3` (`progresstypeid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `gameprogress`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -129,6 +152,28 @@ CREATE TABLE IF NOT EXISTS `inventory` (
 -- Dumping data for table `inventory`
 --
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `progresstype`
+--
+
+CREATE TABLE IF NOT EXISTS `progresstype` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `progresstype` varchar(45) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `progresstype`
+--
+
+INSERT INTO `progresstype` (`id`, `progresstype`) VALUES
+(1, 'Spy'),
+(2, 'Scout'),
+(3, 'Buy'),
+(4, 'Share');
 
 -- --------------------------------------------------------
 
@@ -213,6 +258,14 @@ ALTER TABLE `friendmapping`
 --
 ALTER TABLE `gameprofile`
   ADD CONSTRAINT `FK_gameprofile_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `gameprogress`
+--
+ALTER TABLE `gameprogress`
+  ADD CONSTRAINT `FK_gameprogress_3` FOREIGN KEY (`progresstypeid`) REFERENCES `progresstype` (`id`),
+  ADD CONSTRAINT `FK_gameprogress_1` FOREIGN KEY (`friendid`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FK_gameprogress_2` FOREIGN KEY (`cspid`) REFERENCES `currentsearchparty` (`id`);
 
 --
 -- Constraints for table `inventory`
