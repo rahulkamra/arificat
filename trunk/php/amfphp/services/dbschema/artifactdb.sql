@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 06, 2009 at 07:27 PM
+-- Generation Time: Sep 07, 2009 at 03:50 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.5
 
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `artifactinfo` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(45) NOT NULL default '',
   `desc` varchar(200) NOT NULL,
+  `isactive` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
@@ -30,17 +31,17 @@ CREATE TABLE IF NOT EXISTS `artifactinfo` (
 -- Dumping data for table `artifactinfo`
 --
 
-INSERT INTO `artifactinfo` (`id`, `name`, `desc`) VALUES
-(1, 'Divine Rapier', 'The Divine Rapier was granted by God himself '),
-(2, 'Demon Edge', 'A sword of a fallen general of a Demon Army, imbued with unholy strength '),
-(3, 'Monkey King Bar', 'A powerful staff used by a martial arts master. Grants +80 damage, 15% increased attack speed, True Strike (causes your attacks to never miss) and a 35% chance to deal 100 bonus damage on every attack'),
-(4, 'The Butterfly', 'The Butterfly is a blade that was magically created for use in the War of the Magi, but never used. Only recently recovered from the Avalan vault, it grants its bearer +30 Agility, +30 damage, +30% in'),
-(5, 'Eye of Skadi', 'Extremely rare artifact, guarded by the azure dragons of Northrend. Adds 25 to all stats, 200 life, 150 mana and grants Frost Attack.'),
-(6, 'Helm of the Dominator', 'The powerful headpiece of a dead necromancer. Gives +5 armor, +20 damage, 15% life steal, and the ability to Dominate creeps.'),
-(7, 'Stygian Desolator', 'A wicked weapon, used in torturing political criminals. It hungers for blood. Adds +60 damage and reduces the armor of enemies you attack by 6.'),
-(8, 'Shiva''s Guard', 'Said to have belonged to a goddess, this magical piece of armor was forged by divine wisps in the deeps of Winterspring and even today it retains much of its former power. Grants +15 Armor, +30 Intell'),
-(9, 'Flying Courier', 'Creates a small very fast flying unit that can carry items to and from your base. If it dies the items will fall to the ground. Has magic immunity, hitpoints and armor. Cannot carry Gem. Can cast Burs'),
-(10, 'Planeswalker''s Cloak', 'A cloak made of a magic material that works to dispel any magic cast on it ');
+INSERT INTO `artifactinfo` (`id`, `name`, `desc`, `isactive`) VALUES
+(1, 'Divine Rapier', 'The Divine Rapier was granted by God himself ', 1),
+(2, 'Demon Edge', 'A sword of a fallen general of a Demon Army, imbued with unholy strength ', 1),
+(3, 'Monkey King Bar', 'A powerful staff used by a martial arts master. Grants +80 damage, 15% increased attack speed, True Strike (causes your attacks to never miss) and a 35% chance to deal 100 bonus damage on every attack', 1),
+(4, 'The Butterfly', 'The Butterfly is a blade that was magically created for use in the War of the Magi, but never used. Only recently recovered from the Avalan vault, it grants its bearer +30 Agility, +30 damage, +30% in', 1),
+(5, 'Eye of Skadi', 'Extremely rare artifact, guarded by the azure dragons of Northrend. Adds 25 to all stats, 200 life, 150 mana and grants Frost Attack.', 1),
+(6, 'Helm of the Dominator', 'The powerful headpiece of a dead necromancer. Gives +5 armor, +20 damage, 15% life steal, and the ability to Dominate creeps.', 1),
+(7, 'Stygian Desolator', 'A wicked weapon, used in torturing political criminals. It hungers for blood. Adds +60 damage and reduces the armor of enemies you attack by 6.', 1),
+(8, 'Shiva''s Guard', 'Said to have belonged to a goddess, this magical piece of armor was forged by divine wisps in the deeps of Winterspring and even today it retains much of its former power. Grants +15 Armor, +30 Intell', 1),
+(9, 'Flying Courier', 'Creates a small very fast flying unit that can carry items to and from your base. If it dies the items will fall to the ground. Has magic immunity, hitpoints and armor. Cannot carry Gem. Can cast Burs', 1),
+(10, 'Planeswalker''s Cloak', 'A cloak made of a magic material that works to dispel any magic cast on it ', 1);
 
 -- --------------------------------------------------------
 
@@ -54,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `currentsearchparty` (
   `artifactid` int(10) unsigned NOT NULL default '0',
   `artifactlvl` int(10) unsigned NOT NULL default '0',
   `progress` int(10) unsigned NOT NULL default '0',
-  `isactive` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `FK_currentsearchparty_1` (`userid`),
   KEY `FK_currentsearchparty_2` (`artifactid`)
@@ -263,9 +263,9 @@ ALTER TABLE `gameprofile`
 -- Constraints for table `gameprogress`
 --
 ALTER TABLE `gameprogress`
-  ADD CONSTRAINT `FK_gameprogress_3` FOREIGN KEY (`progresstypeid`) REFERENCES `progresstype` (`id`),
   ADD CONSTRAINT `FK_gameprogress_1` FOREIGN KEY (`friendid`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `FK_gameprogress_2` FOREIGN KEY (`cspid`) REFERENCES `currentsearchparty` (`id`);
+  ADD CONSTRAINT `FK_gameprogress_2` FOREIGN KEY (`cspid`) REFERENCES `currentsearchparty` (`id`),
+  ADD CONSTRAINT `FK_gameprogress_3` FOREIGN KEY (`progresstypeid`) REFERENCES `progresstype` (`id`);
 
 --
 -- Constraints for table `inventory`
