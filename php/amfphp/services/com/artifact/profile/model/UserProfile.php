@@ -24,7 +24,7 @@ class UserProfile {
     public $favgame;
     public $imgurl;
 
-    public $user;
+    private $user;
 
     public function getUser(){
         return $this->user;

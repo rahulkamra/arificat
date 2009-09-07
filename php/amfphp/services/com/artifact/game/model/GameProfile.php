@@ -21,7 +21,7 @@ class GameProfile {
     public $shareLvl;
     public $buyLvl;
 
-    public $user;
+    private $user;
 
      public function getUser(){
         return $this->user;

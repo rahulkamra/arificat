@@ -14,8 +14,8 @@ class Inventory {
     public $id;
     public $artifactLvl;
 
-    public $user;
-    public $artifact;
+    private $user;
+    private $artifact;
 
      public function getUser(){
         return $this->user;

@@ -16,8 +16,8 @@ class CurrentSearchParty {
     public $artifactLvl;
     public $progress;
 
-    public $user;
-    public $artifact;
+    private $user;
+    private $artifact;
 
      public function getUser(){
         return $this->user;
