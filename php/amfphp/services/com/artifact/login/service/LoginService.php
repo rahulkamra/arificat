@@ -9,13 +9,15 @@
  *
  * @author Savior
  */
+
 include_once("../dao/LoginDAO.php");
+include_once("../model/User.php");
 include_once("../../util/dbconnection/Connection.php");
 include_once("../../util/properties/Database.php");
 
-class Login {
+class LoginService {
     //put your code here
-    function Login(){
+    function LoginService(){
         $this->methodTable = array(
             "doLogin" => array(
             "description" => "//put your code here",
@@ -23,10 +25,15 @@ class Login {
             )
         );
     }
+    
     public function doLogin($username){
         $logindao = new LoginDAO();
-
-        return $logindao->isUsernameAvailable($username);
+        $user=$logindao->isUsernameAvailable($username);
+        if($user){
+           $_SESSION['loggedin_user']=$user;
+           NetDebug::trace('session started');
+        }
+        return $user;
     }
 }
 
