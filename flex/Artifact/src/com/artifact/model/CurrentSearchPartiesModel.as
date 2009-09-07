@@ -6,6 +6,8 @@ package com.artifact.model
 		{
 		}
 		[Bindable]
+		public var cspId:int;
+		[Bindable]
 		public var artifactName:String ;
 		[Bindable]
 		public var artifactLvl:int;

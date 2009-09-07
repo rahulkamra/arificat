@@ -14,8 +14,8 @@
 		</mx:VBox>
 		
 	<!--Middle Panel-->	
-		<mx:VBox id="vbxMiddle" height="100%"  width="45%" verticalGap="{vbxMiddle.height*2/100}" paddingTop="10" paddingBottom="10">
-			<mx:Button width="100%" height="20%" styleName="startButton" label="Search New Artifact Search Party" fontSize="18" click="startNewParty()">
+		<mx:VBox id="vbxMiddle" height="100%"  width="45%" verticalGap="{vbxMiddle.height*2/100}" paddingTop="10" paddingBottom="10" verticalScrollPolicy="off">
+			<mx:Button width="100%" height="20%" styleName="startButton" label="Start New Artifact Search Party" fontSize="18" click="startNewParty()">
 			</mx:Button>
 			
 			<mx:Panel  width="100%" height="44%"  title="Current Search Parties">
