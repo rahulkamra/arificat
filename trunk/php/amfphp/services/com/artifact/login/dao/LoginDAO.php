@@ -19,13 +19,13 @@ class LoginDAO {
 
         $tempArray=mysql_fetch_array($result);
         if(mysql_num_rows($result) == 1){
-            $loginid = $tempArray['id'];
+            $user=new User();
+            $user->id=$tempArray['id'];
+            $user->username=$tempArray['username'];
         }
-
-       
         Connection::closeConnection($con);
 
-        return $loginid;
+        return $user;
 
     }
 }
