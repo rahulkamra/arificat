@@ -5,6 +5,10 @@ package com.artifact.controller
 		public function ArtifactUIController()
 		{
 		}
+		
+		public function checkUsername(username:String):void{
+			Artifact.artifactServieController.authenticate(username);
+		}
 
 	}
 }
