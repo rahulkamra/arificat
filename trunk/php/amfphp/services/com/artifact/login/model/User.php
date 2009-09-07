@@ -14,5 +14,6 @@ class User {
     public $id;
     public $username;
     
+    public $_explicitType = "com.artifact.login.model.User";
 }
 ?>
