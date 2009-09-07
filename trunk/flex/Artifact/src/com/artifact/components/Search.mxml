@@ -139,7 +139,7 @@
 	</mx:Canvas>
 	<mx:Script>
 		<![CDATA[
-			import com.artifact.model.ArtifactConstants;
+			import com.artifact.constants.ArtifactConstants;
 			import mx.collections.ArrayCollection;
 			import com.artifact.controller.MockController;
 			import mx.controls.Alert;
