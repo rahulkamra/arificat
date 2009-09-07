@@ -1,4 +1,4 @@
-package com.artifact.model
+package com.artifact.constants
 {
 	public class ArtifactConstants
 	{
