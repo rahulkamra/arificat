@@ -14,9 +14,9 @@ class GameProgress {
 
     public $id;
     
-    public $friend;
-    public $csp;
-    public $progressType;
+    private $friend;
+    private $csp;
+    private $progressType;
 
     public function getFriend(){
         return $this->friend;
