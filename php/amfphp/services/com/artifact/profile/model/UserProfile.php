@@ -11,7 +11,7 @@
  */
 class UserProfile {
     //put your code here
-
+    public $_explicitType="com.artifact.profile.model.UserProfile";
     public $id;
     public $age;
     public $politicalView;
@@ -24,14 +24,15 @@ class UserProfile {
     public $favgame;
     public $imgurl;
 
-    private $user;
 
-    public function getUser(){
-        return $this->user;
-    }
+    public $user;
 
-    public function setUser(User $user){
-        $this->user=$user;
-    }
+    //public function getUser(){
+      //  return $this->user;
+    //}
+
+   // public function setUser(User $user){
+     //   $this->user=$user;
+   // }
 }
 ?>

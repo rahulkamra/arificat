@@ -12,6 +12,7 @@
 
 include_once("../dao/LoginDAO.php");
 include_once("../model/User.php");
+include_once("../../profile/model/UserProfile.php");
 include_once("../../util/dbconnection/Connection.php");
 include_once("../../util/properties/Database.php");
 
@@ -30,6 +31,7 @@ class LoginService {
         $logindao = new LoginDAO();
         $user=$logindao->isUsernameAvailable($username);
         if($user){
+            session_start();
            $_SESSION['loggedin_user']=$user;
            NetDebug::trace('session started');
         }

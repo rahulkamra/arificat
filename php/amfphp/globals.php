@@ -11,7 +11,8 @@
 	
 	$servicesPath = "services/";
 	$voPath = "services/vo/";
-	
+	//Start the session, to make sure we're the first
+    require_once($servicesPath . "Objectinitializer.php");
 	//As an example of what you might want to do here, consider:
 	
 	/*
