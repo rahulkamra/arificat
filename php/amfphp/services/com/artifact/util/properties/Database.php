@@ -15,6 +15,6 @@ class Database {
     const server = "127.0.0.1";
     const databasename = "artifactdb";
     const username = "root";
-    const password = "";
+    const password = "root";
 }
 ?>

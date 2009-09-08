@@ -17,7 +17,7 @@ class UserProfile {
     public $politicalView;
     public $religion;
     public $language;
-    public $humor;
+    public $humour;
     public $country;
     public $school;
     public $job;
@@ -27,12 +27,12 @@ class UserProfile {
 
     public $user;
 
-    //public function getUser(){
-      //  return $this->user;
-    //}
+    public function getUser(){
+        return $this->user;
+    }
 
-   // public function setUser(User $user){
-     //   $this->user=$user;
-   // }
+    public function setUser(User $user){
+        $this->user=$user;
+    }
 }
 ?>
