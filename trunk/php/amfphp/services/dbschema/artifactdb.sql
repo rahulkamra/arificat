@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.4
+-- version 3.1.3.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 07, 2009 at 03:50 PM
--- Server version: 5.0.51
--- PHP Version: 5.2.5
+-- Generation Time: Sep 08, 2009 at 12:26 PM
+-- Server version: 5.0.45
+-- PHP Version: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -103,12 +103,20 @@ CREATE TABLE IF NOT EXISTS `gameprofile` (
   `buylvl` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `FK_gameprofile_1` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `gameprofile`
 --
 
+INSERT INTO `gameprofile` (`id`, `userid`, `gold`, `exp`, `globallvl`, `spylvl`, `scoutlvl`, `sharelvl`, `buylvl`) VALUES
+(1, 1, 0, 0, 1, 1, 0, 0, 0),
+(2, 2, 0, 0, 1, 1, 0, 0, 0),
+(3, 3, 0, 0, 1, 1, 0, 0, 0),
+(4, 4, 0, 0, 1, 1, 0, 0, 0),
+(5, 5, 0, 0, 1, 1, 0, 0, 0),
+(6, 6, 0, 0, 1, 1, 0, 0, 0),
+(7, 7, 0, 0, 1, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 

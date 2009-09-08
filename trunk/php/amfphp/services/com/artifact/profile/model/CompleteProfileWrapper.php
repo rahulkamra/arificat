@@ -13,8 +13,8 @@ class CompleteProfileWrapper {
     //put your code here
 
     public $friendsArray;         //Array of type user profile;
-    private $userProfile;         //object of userprofile
-    private $gameProfile;         //object of gameprofile
+    public $userProfile;         //object of userprofile   have to make it public other wise serialization was not happening a set back to encapsulation
+    public $gameProfile;         //object of gameprofile
     public $currentSearchPartiesArray;           //array of current search parties
     public $friendSearchPartiesArray;            //array of current search parties
     public $myArtifacts;                         //array of artifactinfo

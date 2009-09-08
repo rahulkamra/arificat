@@ -9,6 +9,20 @@
  *
  * @author kaal
  */
+
+include_once("../../login/model/User.php");
+include_once("../model/UserProfile.php");
+include_once("../dao/UserProfileDAO.php");
+include_once("../../friends/dao/FriendsDAO.php");
+include_once("../../friends/util/FriendsUtil.php");
+include_once("../../game/util/GameUtil.php");
+include_once("../../game/model/GameProfile.php");
+include_once("../../game/dao/GameDAO.php");
+include_once("..//model/CompleteProfileWrapper.php");
+include_once("../../util/dbconnection/Connection.php");
+include_once("../../util/properties/Database.php");
+
+
 class ProfileService {
     //put your code here
     function ProfileService(){
@@ -23,9 +37,22 @@ class ProfileService {
 
     public function getProfile(){
         $user=$_SESSION['loggedin_user'];
-        $userId=$user->id;
-        NetDebug::printr($user);
-        return $userId;
+        NetDebug::trace('session user is');
+        NetDebug::trace($user);
+        $completeProfileWrapper=new CompleteProfileWrapper();
+        
+        $userProfileDAO=new UserProfileDAO();
+        $userProfile=$userProfileDAO->getUserProfile($user);
+        $completeProfileWrapper->setUserProfile($userProfile);
+
+        $friendUtil=new FriendsUtil();
+        $friends=$friendUtil->getFriends($user);
+        $completeProfileWrapper->friendsArray=$friends;
+
+        $gameUtil=new GameUtil;
+        $gameProfile=$gameUtil->getGameProfile($user);
+        $completeProfileWrapper->setGameProfile($gameProfile);
+        return $completeProfileWrapper;
     }
 }
 ?>

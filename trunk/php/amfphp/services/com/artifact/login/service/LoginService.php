@@ -31,9 +31,10 @@ class LoginService {
         $logindao = new LoginDAO();
         $user=$logindao->isUsernameAvailable($username);
         if($user){
-            session_start();
+           //session_start();
            $_SESSION['loggedin_user']=$user;
-           NetDebug::trace('session started');
+           NetDebug::trace('session started for user');
+           NetDebug::trace($user);
         }
         return $user;
     }
