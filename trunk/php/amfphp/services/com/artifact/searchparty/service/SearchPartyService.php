@@ -12,13 +12,15 @@
 include_once("../../info/model/ArtifactInfo.php");
 include_once("../model/CurrentSearchParty.php");
 include_once("../dao/CurrentSearchPartyDAO.php");
+include_once("../../util/dbconnection/Connection.php");
+include_once("../../util/properties/Database.php");
 class SearchPartyService {
     //put your code here
 
     function SearchPartyService(){
         $this->methodTable = array(
         "startSearchParty" => array(
-		"description" => "//{_explicitType:'com.artifact.info.model.ArtifactInfo',id:'1',name:'Divine',desc:'A new desc','isActive:'1''}",
+		"description" => "//{_explicitType:'com.artifact.info.model.ArtifactInfo',id:'1',name:'Divine',desc:'A new desc','isActive:'1'}",
 		"arguments" => array(
             "artifactObj" => array("type" => "com.artifact.info.model.ArtifactInfo", "required" => true)
             ),
@@ -39,6 +41,8 @@ class SearchPartyService {
        $currentSearchParty->progress=0;
        $currentSearchParty->setUser($user);
        $currentSearchPartyDAO=new CurrentSearchPartyDAO();
+       $currentSearchPartyDAO->addNewSearchParty($currentSearchParty);
+       
        NetDebug::trace($currentSearchParty);
         //$currentSearchParty->
 
