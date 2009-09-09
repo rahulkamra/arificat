@@ -189,7 +189,7 @@ package com.artifact.controller
 		}
 		
 		
-		public static function giveArtifactData():ArrayCollection{
+		/* public static function giveArtifactData():ArrayCollection{
 				var one:Object=new Object;
 				one.name="Divine Rapier"
 				one.desc="A powerful staff used by a martial arts master. Grants +80 damage, 15% increased attack speed, True Strike (causes your attacks to never miss) and a 35% chance to deal 100 bonus damage on every attack";
@@ -205,7 +205,7 @@ package com.artifact.controller
 				four.desc="Creates a small very fast flying unit that can carry items to and from your base. If it dies the items will fall to the ground. Has magic immunity, hitpoints and armor. Cannot carry Gem. Can cast Burs";
 				
 				return new ArrayCollection([one,two,three,four]);
-			}
+			} */
 
 	}
 }
