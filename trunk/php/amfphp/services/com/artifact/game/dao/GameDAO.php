@@ -15,8 +15,6 @@ class GameDAO {
         $con = Connection::createConnection();
         $result = mysql_query("Select * From gameprofile Where userid=$user->id");
         $tempArray=mysql_fetch_array($result);
-         NetDebug::trace('Ok');
-        NetDebug::trace($user);
         if(mysql_num_rows($result) == 1){
             $gameProfile=new GameProfile;
             $gameProfile->id=$tempArray['id'];

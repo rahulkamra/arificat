@@ -37,8 +37,6 @@ class ProfileService {
 
     public function getProfile(){
         $user=$_SESSION['loggedin_user'];
-        NetDebug::trace('session user is');
-        NetDebug::trace($user);
         $completeProfileWrapper=new CompleteProfileWrapper();
         
         $userProfileDAO=new UserProfileDAO();
@@ -52,6 +50,8 @@ class ProfileService {
         $gameUtil=new GameUtil;
         $gameProfile=$gameUtil->getGameProfile($user);
         $completeProfileWrapper->setGameProfile($gameProfile);
+
+        
         return $completeProfileWrapper;
     }
 }

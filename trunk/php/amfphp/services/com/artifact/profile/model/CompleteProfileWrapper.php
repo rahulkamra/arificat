@@ -11,7 +11,7 @@
  */
 class CompleteProfileWrapper {
     //put your code here
-
+    public $_explicitType = "com.artifact.profile.model.CompleteProfileWrapper";
     public $friendsArray;         //Array of type user profile;
     public $userProfile;         //object of userprofile   have to make it public other wise serialization was not happening a set back to encapsulation
     public $gameProfile;         //object of gameprofile

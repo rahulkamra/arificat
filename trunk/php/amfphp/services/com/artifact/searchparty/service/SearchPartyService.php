@@ -9,30 +9,33 @@
  *
  * @author kaal
  */
+include_once("../../info/model/ArtifactInfo.php");
+include_once("../model/CurrentSearchParty.php");
+include_once("../dao/CurrentSearchPartyDAO.php");
 class SearchPartyService {
     //put your code here
 
     function SearchPartyService(){
         $this->methodTable = array(
-            "getActiveArtifacts" => array(
-            "description" => "Get Artifacts",
-            "access" => "remote"
-            )
+        "startSearchParty" => array(
+		"description" => "//{_explicitType:'com.artifact.info.model.ArtifactInfo',id:'1',name:'Divine',desc:'A new desc','isActive:'1''}",
+		"arguments" => array(
+            "artifactObj" => array("type" => "com.artifact.info.model.ArtifactInfo", "required" => true)
+            ),
+		"access" => "remote"
+        )
         );
     }
 
+    //For using service browser
+    //{_explicitType:'com.artifact.info.model.ArtifactInfo',id:'1',name:'Divine',desc:'A new desc','isActive:'1''}
     public function startSearchParty($artifactObj){
-        
-        $user=$_SESSION['loggedin_user'];
+       settype($artifactObj,"object");
+       $user=$_SESSION['loggedin_user'];
 
-        /* Converting flex object into php */
-        $artifact=new ArtifactInfo;
-        $artifact->desc=$artifactObj['desc'];
-        $artifact->id=$artifactObj['id'];
-        $artifact->name=$artifactObj['name'];
-        $artifact->isActive=$artifact['isActive'];
-
-        $currentSearchParty=new CurrentSearchParty();
+       $currentSearchParty=new CurrentSearchParty();
+       //$currentSearchParty->
+       $currentSearchPartyDAO=new CurrentSearchPartyDAO();
         //$currentSearchParty->
 
     }
