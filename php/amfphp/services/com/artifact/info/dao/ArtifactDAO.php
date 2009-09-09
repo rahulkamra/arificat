@@ -26,7 +26,6 @@ class ArtifactDAO {
                 array_push($artifactList, $artifact);
             }
         }
-        NetDebug::trace($artifactList);
         return $artifactList;
     }
 

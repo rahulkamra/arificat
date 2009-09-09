@@ -33,11 +33,11 @@ class LoginService {
         if($user){
            //session_start();
            $_SESSION['loggedin_user']=$user;
-           NetDebug::trace('session started for user');
-           NetDebug::trace($user);
+           //NetDebug::trace('session started for user');
+          // NetDebug::trace($user);
         }
+        
         return $user;
     }
 }
-
 ?>

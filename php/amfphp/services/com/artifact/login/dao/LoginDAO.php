@@ -19,7 +19,7 @@ class LoginDAO {
 
         $tempArray=mysql_fetch_array($result);
         if(mysql_num_rows($result) == 1){
-            $user=new User;
+            $user=new User();
             $user->id=$tempArray['id'];
             $user->username=$tempArray['username'];
         }

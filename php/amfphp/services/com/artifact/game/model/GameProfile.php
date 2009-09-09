@@ -11,7 +11,7 @@
  */
 class GameProfile {
     //put your code here
-
+    public $_explicitType="com.artifact.game.model.GameProfile";
     public $id;
     public $gold;
     public $exp;
@@ -21,7 +21,7 @@ class GameProfile {
     public $shareLvl;
     public $buyLvl;
 
-    private $user;
+    public $user;
 
      public function getUser(){
         return $this->user;

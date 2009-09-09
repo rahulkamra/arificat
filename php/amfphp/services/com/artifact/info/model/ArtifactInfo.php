@@ -16,5 +16,7 @@ class ArtifactInfo {
     public $desc;
     public $isActive;
 
+    public $_explicitType = "com.artifact.info.model.ArtifactInfo";
+
 }
 ?>
