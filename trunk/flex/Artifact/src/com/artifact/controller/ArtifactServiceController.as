@@ -25,6 +25,7 @@ package com.artifact.controller
 		 **/
 		public function authenticate(username:String):void{
 			var ro:RemoteObject=new RemoteObject;
+			ro.showBusyCursor=true;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
 			ro.destination=ArtifactServiceConstants.LOGIN_SERVICE;
 			ro.source=ArtifactServiceConstants.LOGIN_SERVICE;
@@ -36,11 +37,9 @@ package com.artifact.controller
 		
 		public function authenticateResultHandler(event:ResultEvent):void{
 			var user:User=event.result as User;
-			getProfile();
-			trace(user)
 			if(user){
 				ArtifactUIController.loggedInUser=user
-				Application.application.currentState='loggedin';
+				getProfile();
 			}else{
 				Alert.show('Wrong username');
 			}
@@ -53,6 +52,7 @@ package com.artifact.controller
 		 	var ro:RemoteObject=new RemoteObject;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
 			ro.destination=ArtifactServiceConstants.GET_PROFILE;
+			ro.showBusyCursor=true;
 			ro.source=ArtifactServiceConstants.GET_PROFILE;
 			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
 			ro.addEventListener(ResultEvent.RESULT,getProfileResultHandler);
@@ -61,7 +61,10 @@ package com.artifact.controller
 		 
 		 public function getProfileResultHandler(event:ResultEvent):void{
 		 	var completeProfile:CompleteProfileWrapper=event.result as CompleteProfileWrapper;
-		 	trace(event.result) 
+		 	ArtifactUIController.gameProfile=completeProfile.gameProfile;
+		 	ArtifactUIController.userProfile=completeProfile.userProfile; 
+		 	ArtifactUIController.friends=completeProfile.friendsArray;
+		 	Application.application.currentState='loggedin';
 		 }
 		
 		/**

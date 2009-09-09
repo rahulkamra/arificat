@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Image xmlns:mx="http://www.adobe.com/2006/mxml" source="{data.imgSrc}" width="60" height="60">
+<mx:Image xmlns:mx="http://www.adobe.com/2006/mxml" source="{data.imgurl}" width="60" height="60" toolTip="{data.user.username}" doubleClick="Alert.show('show profile here but later')" doubleClickEnabled="true">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+		]]>
+	</mx:Script>
 	
 </mx:Image>

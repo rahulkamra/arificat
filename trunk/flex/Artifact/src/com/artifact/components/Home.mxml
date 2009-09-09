@@ -9,7 +9,7 @@
 				<components:ProfileDetails width="100%" height="100%"/>
 			</mx:Canvas>
 			<mx:Panel height="67%" width="100%" id="cvsFriends" title="Friends" textAlign="center" >
-				<components:FriendsList width="100%" height="100%"  columnCount="4" dataProvider="{MockController.getFriendsList()}"/>
+				<components:FriendsList width="100%" height="100%"  columnCount="4" dataProvider="{ArtifactUIController.friends}"/>
 			</mx:Panel>
 		</mx:VBox>
 		
@@ -35,6 +35,7 @@
 	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.controller.ArtifactUIController;
 			import mx.core.Application;
 			import mx.managers.PopUpManager;
 			import com.artifact.controller.MockController;
