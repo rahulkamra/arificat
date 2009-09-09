@@ -3,11 +3,12 @@ package com.artifact.controller
 	import com.artifact.constants.ArtifactServiceConstants;
 	import com.artifact.servermodel.ArtifactInfo;
 	import com.artifact.servermodel.CompleteProfileWrapper;
+	import com.artifact.servermodel.CurrentSearchParty;
 	import com.artifact.servermodel.User;
-	import com.artifact.servermodel.UserProfile;
 	
 	import mx.controls.Alert;
 	import mx.core.Application;
+	import mx.managers.PopUpManager;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
@@ -64,6 +65,7 @@ package com.artifact.controller
 		 	ArtifactUIController.gameProfile=completeProfile.gameProfile;
 		 	ArtifactUIController.userProfile=completeProfile.userProfile; 
 		 	ArtifactUIController.friends=completeProfile.friendsArray;
+		 	trace(completeProfile.currentSearchPartiesArray);
 		 	Application.application.currentState='loggedin';
 		 }
 		
@@ -101,18 +103,19 @@ package com.artifact.controller
 			ro.source=ArtifactServiceConstants.NEW_SEARCH_PARTY_SERVICE;
 			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
 			ro.addEventListener(ResultEvent.RESULT,startNewSearchPartyResultHandler);
-			var userProfile:UserProfile=new UserProfile;
-			userProfile.id=12;
-			var user:User=new User;
-			user.username='haha';
-			userProfile.user=user
-			ro.startSearchParty(userProfile);	
+			ro.startSearchParty(artifact);	
 		 }
 		 
 		 public function startNewSearchPartyResultHandler(event:ResultEvent):void{
-		 	var result:UserProfile=event.result as UserProfile;
-		 	trace(event.result)
-		 	trace(result.user)
+		 	var result:CurrentSearchParty=event.result as CurrentSearchParty;
+		 	//@todo -->add current search party into ui :)
+		 	
+		 	//close pop up
+		 	if(Application.application.home.newSearchPartyPopUp){
+		 		PopUpManager.removePopUp(Application.application.home.newSearchPartyPopUp);
+		 		Application.application.home.newSearchPartyPopUp=null;
+		 	} 
+		 	
 		 }
 
 	}

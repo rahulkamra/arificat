@@ -12,7 +12,7 @@ package com.artifact.servermodel
     	public var artifactLvl:int;
     	public var progress:int;
     	public var user:User;
-    	public var artifact:ArtifactInfoi;
+    	public var artifact:ArtifactInfo;
 
 	}
 }
