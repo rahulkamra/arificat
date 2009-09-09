@@ -6,7 +6,7 @@ package com.artifact.servermodel
 	{
 		
 		public var id:int;
-		public var username:int;
+		public var username:String;
 
 	}
 }

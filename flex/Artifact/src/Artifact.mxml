@@ -8,7 +8,7 @@
 			<mx:SetProperty name="styleName" value="loggedInApp"/>
 			<mx:AddChild position="lastChild">
 				<mx:Canvas y="{topPadding}" width="90%" height="85%" horizontalCenter="0"  id="cvsMain">
-					<components:Home  y="{imgBanner.height}" width="100%" height="{cvsMain.height-imgBanner.height}">
+					<components:Home  y="{imgBanner.height}" width="100%" height="{cvsMain.height-imgBanner.height}" id="home">
 					</components:Home>
 					<mx:Image x="75" width="532" height="71" id="imgBanner" y="0" source="com/artifact/resources/images/banner.png"/>
 				</mx:Canvas>
@@ -17,13 +17,22 @@
 	</mx:states>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.controller.ArtifactServiceController;
+			import com.artifact.controller.ArtifactUIController;
 			public const topPadding:int=50;
 			
 			public const bottomPadding:int=50;
+			
+			public static var artifactUIController:ArtifactUIController=new ArtifactUIController();
+			public static var artifactServiceController:ArtifactServiceController=new ArtifactServiceController();
+			public function login():void{
+				Artifact.artifactUIController.checkUsername(textinput1.text);
+				
+			}
 		]]>
 	</mx:Script>
 	<mx:Style source="com/artifact/resources/css/artifact.css"/>
 	<mx:TextInput y="237"  horizontalCenter="20" id="textinput1"/>
-	<mx:Button y="267" label="Login" horizontalCenter="-25" id="button1" click="currentState='loggedin'"/>
+	<mx:Button y="267" label="Login" horizontalCenter="-25" id="button1" click="login()"/>
 	<mx:Text y="234" text="Enter Adventurer&#xa;&#x9;&#x9;" height="32" color="#000000" fontFamily="Georgia" fontSize="16" horizontalCenter="-134" id="text1"/>
 </mx:Application>
