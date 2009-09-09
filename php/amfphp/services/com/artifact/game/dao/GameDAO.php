@@ -18,7 +18,7 @@ class GameDAO {
         if(mysql_num_rows($result) == 1){
             $gameProfile=new GameProfile;
             $gameProfile->id=$tempArray['id'];
-            $gameProfile->setUser($user);
+            $gameProfile->user=$user;
             $gameProfile->buyLvl=$tempArray['buylvl'];
             $gameProfile->exp=$tempArray['exp'];
             $gameProfile->globalLvl=$tempArray['globallvl'];

@@ -12,9 +12,10 @@
 class ArtifactDAO {
     //put your code here
 
-    public function getArtifacts(){
+    //SELECT * FROM artifactinfo where id not in (select id from currentsearchparty where userid = 2)
+    public function getArtifacts(User $user){
         $con = Connection::createConnection();
-        $result = mysql_query("Select * from artifactinfo ");
+        $result = mysql_query("SELECT * FROM artifactinfo where id not in (select artifactid from currentsearchparty where userid = $user->id)");
         $artifactList=array();
         while($row = mysql_fetch_array($result)){
             if($row['isactive'] == 1){

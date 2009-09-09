@@ -26,8 +26,9 @@ class ArtifactService {
     }
 
     public function getActiveArtifacts(){
+        $user=$_SESSION['loggedin_user'];
         $artifactDAO=new ArtifactDAO();
-        $artifactList=$artifactDAO->getArtifacts();
+        $artifactList=$artifactDAO->getArtifacts($user);
         return $artifactList;
     }
 }
