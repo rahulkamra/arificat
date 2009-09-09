@@ -32,10 +32,14 @@ class SearchPartyService {
     public function startSearchParty($artifactObj){
        settype($artifactObj,"object");
        $user=$_SESSION['loggedin_user'];
-
+       $gameProfile=$_SESSION['game_profile'];
        $currentSearchParty=new CurrentSearchParty();
-       //$currentSearchParty->
+       $currentSearchParty->artifact=$artifactObj;
+       $currentSearchParty->artifactLvl=$gameProfile->globalLvl;
+       $currentSearchParty->progress=0;
+       $currentSearchParty->setUser($user);
        $currentSearchPartyDAO=new CurrentSearchPartyDAO();
+       NetDebug::trace($currentSearchParty);
         //$currentSearchParty->
 
     }
