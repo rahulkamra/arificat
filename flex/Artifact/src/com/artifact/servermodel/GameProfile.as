@@ -18,6 +18,10 @@ package com.artifact.servermodel
       public var buyLvl:int;
 
       public  var user:User;
+      
+      public function get experiencePointsAvailable():int{
+      	return globalLvl-spyLvl-scoutLvl-shareLvl-buyLvl;
+      }
 
 	}
 }

@@ -5,7 +5,7 @@ package com.artifact.model
 		public function AddSkillModel()
 		{
 		}
-		
+		//Not using delete at the end
 		[Bindable]
 		public var currentLevel:int;
 		[Bindable] 
