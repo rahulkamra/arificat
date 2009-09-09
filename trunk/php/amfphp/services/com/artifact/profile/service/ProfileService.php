@@ -42,6 +42,7 @@ class ProfileService {
         $userProfileDAO=new UserProfileDAO();
         $userProfile=$userProfileDAO->getUserProfile($user);
         $completeProfileWrapper->setUserProfile($userProfile);
+        $_SESSION['user_profile']=$userProfile;
 
         $friendUtil=new FriendsUtil();
         $friends=$friendUtil->getFriends($user);
@@ -50,6 +51,7 @@ class ProfileService {
         $gameUtil=new GameUtil;
         $gameProfile=$gameUtil->getGameProfile($user);
         $completeProfileWrapper->setGameProfile($gameProfile);
+        $_SESSION['game_profile']=$gameProfile;
 
         
         return $completeProfileWrapper;
