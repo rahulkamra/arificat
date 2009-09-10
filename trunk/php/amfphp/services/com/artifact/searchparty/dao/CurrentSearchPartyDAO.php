@@ -63,5 +63,40 @@ class CurrentSearchPartyDAO {
         return $currentSearchParties;
     }
 
+
+    /* Again assuming everybody is a frd of everybody */
+    //select user.id as user_id,user.username as user_name,currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact,user  where currentsearchparty.userid in (select user.id from user where user.id != 1 ) AND currentsearchparty.artifactid=artifact.id AND user.id=currentsearchparty.userid
+    
+    public function getFriendSearchParty(User $user){
+        $con = Connection::createConnection();
+        $result=mysql_query("select user.id as user_id,user.username as user_name,currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact,user  where currentsearchparty.userid in (select user.id from user where user.id != $user->id ) AND currentsearchparty.artifactid=artifact.id AND user.id=currentsearchparty.userid");
+        $friendtSearchParties=array();
+        while($row = mysql_fetch_array($result)){
+            $friendSearchParty=new CurrentSearchParty();
+
+            $userObj=new User();
+            $userObj->id=$row['user_id'];
+            $userObj->username=$row['user_name'];
+
+            $artifactObj=new ArtifactInfo();
+            $artifactObj->desc=$row['desc'];
+            $artifactObj->name=$row['name'];
+            $artifactObj->id=$row['artifact_id'];
+            $artifactObj->isActive=$row['isactive'];
+
+            $friendSearchParty->id=$row['id'];
+            $friendSearchParty->artifactLvl=$row['artifactlvl'];
+            $friendSearchParty->progress=$row['progress'];
+            
+            $friendSearchParty->setUser($userObj);
+            $friendSearchParty->setArtifact($artifactObj);
+            
+            array_push($friendtSearchParties, $friendSearchParty);
+        }
+        Connection::closeConnection($con);
+        return $friendtSearchParties;
+
+    }
+
 }
 ?>

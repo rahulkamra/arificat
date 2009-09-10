@@ -18,7 +18,9 @@ class CurrentSearchPartyUtil {
     }
 
     public function getFriendSearchParty(User $user){
-        
+        $currentSearchPartyDAO=new CurrentSearchPartyDAO;
+        $friendSearchParties=$currentSearchPartyDAO->getFriendSearchParty($user);
+        return $friendSearchParties;
     }
 }
 ?>

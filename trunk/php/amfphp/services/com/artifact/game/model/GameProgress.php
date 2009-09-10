@@ -12,27 +12,16 @@
 class GameProgress {
     //put your code here
 
+
+    //The operation related to Game Progress will b very frequent so making this class as Lazy Load
     public $id;
     
-    private $friend;
-    private $csp;
-    private $progressType;
+    public $friend;
+    public $csp;
+    public $progressType;
+    public $_explicitType = "com.artifact.game.model.GameProgress";
 
-    public function getFriend(){
-        return $this->friend;
-    }
-
-    public function setFriend(User $friend){
-        $this->friend=$friend;
-    }
-
-    public function getCsp(){
-        return $this->csp;
-    }
-
-    public function serCsp(CurrentSearchParty $csp){
-        $this->csp=$csp;
-    }
+ 
 
     public function getProgressType(){
         return $this->progressType;

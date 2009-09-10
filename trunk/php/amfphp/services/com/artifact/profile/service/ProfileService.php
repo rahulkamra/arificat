@@ -17,13 +17,17 @@ include_once("../dao/UserProfileDAO.php");
 include_once("../../friends/dao/FriendsDAO.php");
 include_once("../../friends/util/FriendsUtil.php");
 
-include_once("../../game/util/GameUtil.php");
-include_once("../../game/model/GameProfile.php");
 include_once("../../game/dao/GameDAO.php");
+include_once("../../game/model/GameProfile.php");
+include_once("../../game/util/GameUtil.php");
 
 include_once("../../searchparty/dao/CurrentSearchPartyDAO.php");
 include_once("../../searchparty/model/CurrentSearchParty.php");
 include_once("../../searchparty/util/CurrentSearchPartyUtil.php");
+
+include_once("../../inventory/dao/InventoryDAO.php");
+include_once("../../inventory/model/Inventory.php");
+include_once("../../inventory/util/InventoryUtil.php");
 
 include_once("../../info/model/ArtifactInfo.php");
 include_once("..//model/CompleteProfileWrapper.php");
@@ -64,7 +68,14 @@ class ProfileService {
         $currentSearchPartyUtil=new CurrentSearchPartyUtil();
         $currentSearchParties=$currentSearchPartyUtil->getCurrentSearchParty($user);
         $completeProfileWrapper->currentSearchPartiesArray=$currentSearchParties;
-        
+
+        $friendSearchParties=$currentSearchPartyUtil->getFriendSearchParty($user);
+        $completeProfileWrapper->friendSearchPartiesArray=$friendSearchParties;
+
+        $inventoryUtil=new InventoryUtil();
+        $myInventory=$inventoryUtil->getInventory($user);
+        $completeProfileWrapper->myArtifacts=$myInventory;
+
         return $completeProfileWrapper;
     }
 }

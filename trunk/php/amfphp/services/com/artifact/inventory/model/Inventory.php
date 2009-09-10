@@ -14,8 +14,10 @@ class Inventory {
     public $id;
     public $artifactLvl;
 
-    private $user;
-    private $artifact;
+    public $user;
+    public $artifact;
+
+    public $_explicitType = "com.artifact.inventory.model.Inventory";
 
      public function getUser(){
         return $this->user;
