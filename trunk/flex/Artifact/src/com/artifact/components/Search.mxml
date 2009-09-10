@@ -58,7 +58,7 @@
 			<mx:RemoveChild target="{tileListFriends}"/>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
 				<mx:VBox x="37" y="104" width="571" height="255">
-					<mx:Repeater dataProvider="{MockController.giveQuestions()}" creationComplete="Alert.show(rptQuestions.dataProvider.length)" id="rptQuestions">
+					<mx:Repeater creationComplete="Alert.show(rptQuestions.dataProvider.length)" id="rptQuestions">
 						<ns1:Question width="100%" data="{rptQuestions.currentItem}"/>
 					</mx:Repeater>
 				</mx:VBox>
@@ -139,6 +139,7 @@
 	</mx:Canvas>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.servermodel.UserProfile;
 			import com.artifact.servermodel.CurrentSearchParty;
 			import com.artifact.constants.ArtifactConstants;
 			import mx.collections.ArrayCollection;
@@ -188,7 +189,12 @@
 			}
 			public function goToQuestionair():void{
 				if(currentState == 'spy'){
-					currentState ='questions'
+					if(tileListFriends.selectedItem){
+						var friend:UserProfile=tileListFriends.dataProvider[tileListFriends.selectedIndex] as UserProfile;
+						var currentSearchParty:CurrentSearchParty=_data;
+						Artifact.artifactUIController.getSpyQuestions(friend,currentSearchParty);	
+					}
+					//currentState ='questions'
 				}
 			}
 			public function goToSpyReport():void{

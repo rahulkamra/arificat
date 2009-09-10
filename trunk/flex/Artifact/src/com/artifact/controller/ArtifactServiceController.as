@@ -4,8 +4,9 @@ package com.artifact.controller
 	import com.artifact.servermodel.ArtifactInfo;
 	import com.artifact.servermodel.CompleteProfileWrapper;
 	import com.artifact.servermodel.CurrentSearchParty;
-	import com.artifact.servermodel.Inventory;
+	import com.artifact.servermodel.Questioniar;
 	import com.artifact.servermodel.User;
+	import com.artifact.servermodel.UserProfile;
 	
 	import mx.controls.Alert;
 	import mx.core.Application;
@@ -113,7 +114,7 @@ package com.artifact.controller
 		 
 		 public function startNewSearchPartyResultHandler(event:ResultEvent):void{
 		 	var result:CurrentSearchParty=event.result as CurrentSearchParty;
-		 	//@todo -->add current search party into ui :)
+		 	//add current search party into ui :)
 		 	ArtifactUIController.currentSearchParties.push(result);
 		 	var newCurrentSearchParties:Array=ObjectUtil.copy(ArtifactUIController.currentSearchParties) as Array;
 		 	ArtifactUIController.currentSearchParties=newCurrentSearchParties;
@@ -126,6 +127,31 @@ package com.artifact.controller
 		 	} 
 		 	
 		 }
+		 
+		 /**
+		 * 
+		 * Get Spy Questions
+		 * 
+		 **/
+		 
+		 public function getSpyQuestions(friend:UserProfile,currentSearchParty:CurrentSearchParty):void{
+		 	var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GAME_SERVICE;
+			ro.source=ArtifactServiceConstants.GAME_SERVICE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,getSpyQuestionsResultHandler);
+			ro.getSpyQuestions(friend,currentSearchParty);	
+		 }
+		 
+		 
+		 public function getSpyQuestionsResultHandler(event:ResultEvent):void{
+		 	var qu:Questioniar;
+		 	trace(event.result)
+		 	ArtifactUIController.currentSearch.currentState ='questions'
+		 	ArtifactUIController.currentSearch.rptQuestions.dataProvider=event.result;
+		 }
+		 
 
 	}
 }
