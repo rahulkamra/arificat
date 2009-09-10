@@ -14,5 +14,6 @@ class ProgressType {
 
     public $id;
     public $progressType;
+    public $_explicitType = "com.artifact.game.model.ProgressType";
 }
 ?>

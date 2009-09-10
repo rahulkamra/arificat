@@ -43,8 +43,7 @@ class SearchPartyService {
        $currentSearchPartyDAO=new CurrentSearchPartyDAO();
        $currentSearchPartyDAO->addNewSearchParty($currentSearchParty);
        
-       NetDebug::trace($currentSearchParty);
-        //$currentSearchParty->
+       return $currentSearchParty;
 
     }
 }
