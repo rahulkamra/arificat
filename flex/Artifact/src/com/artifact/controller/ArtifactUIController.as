@@ -1,5 +1,6 @@
 package com.artifact.controller
 {
+	import com.artifact.components.Search;
 	import com.artifact.servermodel.ArtifactInfo;
 	import com.artifact.servermodel.CurrentSearchParty;
 	import com.artifact.servermodel.GameProfile;
@@ -26,6 +27,8 @@ package com.artifact.controller
 		[Bindable]
 		public static var myArtifacts:Array;
 		
+		public static var currentSearch:Search;
+		
 		public function checkUsername(username:String):void{
 			Artifact.artifactServiceController.authenticate(username);
 		}
@@ -38,6 +41,10 @@ package com.artifact.controller
 		public function startNewSearchParty(artifact:ArtifactInfo):void{
 			Artifact.artifactServiceController.startNewSearchParty(artifact);
 		}
+		public function getSpyQuestions(friend:UserProfile,currentSearchParty:CurrentSearchParty):void{
+			Artifact.artifactServiceController.getSpyQuestions(friend,currentSearchParty);
+		}
+		
 		
 		public function findCommonFriendsById(artifactId:int):int{
 			var numberOfFriends:int=0;

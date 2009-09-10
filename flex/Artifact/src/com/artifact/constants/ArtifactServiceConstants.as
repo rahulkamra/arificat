@@ -12,5 +12,6 @@ package com.artifact.constants
 		public static const GET_PROFILE:String="com.artifact.profile.service.ProfileService";
 		public static const GET_ARTIFACTS_SERVICE:String="com.artifact.info.service.ArtifactService";
 		public static const NEW_SEARCH_PARTY_SERVICE:String="com.artifact.searchparty.service.SearchPartyService";
+		public static const GAME_SERVICE:String="com.artifact.game.service.GameService";
 	}
 }
