@@ -37,7 +37,7 @@
 				<mx:Label y="41" text="Select a friend  to spy on" fontSize="22" horizontalCenter="0" id="label4"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<ns1:FriendsList x="25" y="107" width="593" height="264" dataProvider="{MockController.getFriendsList()}" columnCount="7" id="tileListFriends" />
+				<ns1:FriendsList x="25" y="107" width="593" height="264" dataProvider="{_data.commonFriends}" columnCount="7" id="tileListFriends" />
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
 				<mx:Image x="37" y="381" width="146" height="78" maintainAspectRatio="false" click="goToQuestionair()" buttonMode="true" id="imgLeftBot">
@@ -108,12 +108,12 @@
 	
 	<!-- default state -->
 	<mx:Canvas x="47.5" y="82" width="642" height="324" styleName="loginApp" id="canvas1">
-		<mx:Label x="39" y="24" text="{_data.artifactName}"   id="txiName" fontSize="24" maxWidth="456"  fontStyle="italic" fontWeight="bold" />
+		<mx:Label x="39" y="24" text="{_data.artifact.name}"   id="txiName" fontSize="24" maxWidth="456"  fontStyle="italic" fontWeight="bold" />
 		<mx:Label x="533" y="24" text="LVL" fontSize="24" fontStyle="italic" fontWeight="bold" id="label1"/>
 		<mx:Label x="594" y="24" text="{_data.artifactLvl}" fontSize="24" fontStyle="italic" fontWeight="bold" maxWidth="61" id="lblLevel" />
 		<ns1:CustomProgressBar x="364" y="67" width="258" height="36" percentComplete="{_data.progress}" id="customprogressbar1">
 		</ns1:CustomProgressBar>
-		<mx:TextArea x="39" y="122" width="254" height="188" alpha="0" fontSize="12" id="txaDesc" editable="false" text="{_data.artifactDesc}">
+		<mx:TextArea x="39" y="122" width="254" height="188" alpha="0" fontSize="12" id="txaDesc" editable="false" text="{_data.artifact.desc}">
 		</mx:TextArea>
 		<mx:Image x="364" y="122" width="258" height="176"   source="com/artifact/resources/images/mapimage.png" maintainAspectRatio="false" id="image1">
 		</mx:Image>
@@ -132,13 +132,14 @@
 		<mx:LinkButton alpha="0" x="540" y="41" label="Share" fontStyle="italic" fontSize="19" id="lblShare" fontWeight="normal" click="goToShare()"/>
 		
 		
-		<mx:Label x="35" y="100" text="0" width="20" height="19" fontSize="14" id="lblNoFriends"/>
+		<mx:Label x="35" y="100" text="{_data.numberOfCommonFriends}" width="20" height="19" fontSize="14" id="lblNoFriends"/>
 		<mx:Label alpha="0" x="50" y="100" text="friends also looking for this artifact" width="413"  fontSize="14" id="label3"/>
 		
 		<mx:Button y="104" label="CLOSE" click="closeMe()" id="btnClose" right="12"/>
 	</mx:Canvas>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.servermodel.CurrentSearchParty;
 			import com.artifact.constants.ArtifactConstants;
 			import mx.collections.ArrayCollection;
 			import com.artifact.controller.MockController;
@@ -149,7 +150,7 @@
 			[Bindable]
 			public var skillType:String;
 			[Bindable]
-			private var _data:SearchModel;
+			private var _data:CurrentSearchParty;
 			
 			[Bindable]
 			public var experienceGained:int;
@@ -157,13 +158,16 @@
 			public var correctAnswers:int;
 				
 			override public function set data(value:Object):void{
-				this._data=value as SearchModel;
+				this._data=value as CurrentSearchParty;
 			}
+			
+			
 			public function closeMe():void{
 				PopUpManager.removePopUp(this);
 			}
 			public function goToSpy():void{
 				skillType=ArtifactConstants.SPY
+				
 				currentState='spy'
 				
 			}

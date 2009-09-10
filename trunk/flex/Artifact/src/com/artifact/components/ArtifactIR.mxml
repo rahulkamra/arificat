@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:components="com.artifact.components.*" >
 	<mx:Canvas width="100%" height="100%">
-		<mx:Label  maxWidth="{this.width *90/100}" alpha="0" text="-{_data.artifactName} (Lvl {_data.artifactLevel}) " fontSize="12" paddingTop="5"/>
+		<mx:Label  maxWidth="{this.width *90/100}" alpha="0" text="-{_data.artifact.name} (Lvl {_data.artifactLvl}) " fontSize="12" paddingTop="5"/>
 	</mx:Canvas>
 	<mx:Script>
 		<![CDATA[
-			import com.artifact.model.ArtifactModel;
-			import com.artifact.model.FriendSearchPartiesModel;
-			import com.artifact.model.CurrentSearchPartiesModel;
+			import com.artifact.servermodel.Inventory;
 			[Bindable]	
-			private var _data:ArtifactModel;
+			private var _data:Inventory;
 			override public function set data(value:Object):void{
-				this._data=value as ArtifactModel;
+				this._data=value as Inventory;
 			}
 			
 			

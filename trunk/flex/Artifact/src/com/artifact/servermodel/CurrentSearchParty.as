@@ -13,6 +13,14 @@ package com.artifact.servermodel
     	public var progress:int;
     	public var user:User;
     	public var artifact:ArtifactInfo;
+    	
+    	public function get numberOfCommonFriends():int{
+    		return Artifact.artifactUIController.findCommonFriendsById(artifact.id);
+    	}
+    	
+    	public function get commonFriends():Array{
+    		return Artifact.artifactUIController.giveCommonFriendsProfileByArtifactId(artifact.id);
+    	}
 
 	}
 }
