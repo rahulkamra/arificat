@@ -57,7 +57,7 @@
 			<mx:SetProperty target="{label5}" name="y" value="407"/>
 			<mx:RemoveChild target="{tileListFriends}"/>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:VBox x="37" y="104" width="571" height="255">
+				<mx:VBox x="37" y="104" width="571" height="255"  id="vbxQuestions">
 					<mx:Repeater creationComplete="Alert.show(rptQuestions.dataProvider.length)" id="rptQuestions">
 						<ns1:Question width="100%" data="{rptQuestions.currentItem}"/>
 					</mx:Repeater>
@@ -139,6 +139,7 @@
 	</mx:Canvas>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.servermodel.Answer;
 			import com.artifact.servermodel.UserProfile;
 			import com.artifact.servermodel.CurrentSearchParty;
 			import com.artifact.constants.ArtifactConstants;
@@ -187,6 +188,7 @@
 				skillType=ArtifactConstants.SHARE
 				currentState='showfriends';
 			}
+			
 			public function goToQuestionair():void{
 				if(currentState == 'spy'){
 					if(tileListFriends.selectedItem){
@@ -198,6 +200,15 @@
 				}
 			}
 			public function goToSpyReport():void{
+				var answerArray:Array=new Array();
+				for(var count:int = 0 ; count < vbxQuestions.getChildren().length ; count++){
+					var eachChild:Question=vbxQuestions.getChildren()[count] as Question;
+					var answer:Answer=new Answer();
+					answer.question=eachChild.question.text;
+					answer.answer=eachChild.radiogroup1.selection.label;
+					answerArray.push(answerArray);	
+					
+				}
 				correctAnswers=12;
 				experienceGained=18;
 				currentState='report';
