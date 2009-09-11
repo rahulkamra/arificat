@@ -26,8 +26,15 @@ class GameService {
             "getSpyQuestions" => array(
             "description" => "//put your code here",
             "access" => "remote"
+            ),
+            "grantSpyProgress" => array(
+                "description" => "No description given.",
+                "access" => "remote"
             )
+
         );
+
+        
     }
 
     public function getSpyQuestions($friend,$currentSearchParty){
@@ -65,6 +72,11 @@ class GameService {
         }
 
         return $questioniar;
+
+    }
+
+    public function grantSpyProgress($answers){
+         settype($answers,"object");
 
     }
 }
