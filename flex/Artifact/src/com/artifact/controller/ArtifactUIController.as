@@ -45,7 +45,9 @@ package com.artifact.controller
 			Artifact.artifactServiceController.getSpyQuestions(friend,currentSearchParty);
 		}
 		
-		
+		public function grantSpyProgress():void{
+			
+		}
 		public function findCommonFriendsById(artifactId:int):int{
 			var numberOfFriends:int=0;
 			for(var count:int = 0 ; count < friendSearchParties.length ; count++){
