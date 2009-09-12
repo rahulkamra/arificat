@@ -4,6 +4,7 @@ package com.artifact.controller
 	import com.artifact.servermodel.ArtifactInfo;
 	import com.artifact.servermodel.CurrentSearchParty;
 	import com.artifact.servermodel.GameProfile;
+	import com.artifact.servermodel.GameProgress;
 	import com.artifact.servermodel.User;
 	import com.artifact.servermodel.UserProfile;
 	
@@ -41,12 +42,12 @@ package com.artifact.controller
 		public function startNewSearchParty(artifact:ArtifactInfo):void{
 			Artifact.artifactServiceController.startNewSearchParty(artifact);
 		}
-		public function getSpyQuestions(friend:UserProfile,currentSearchParty:CurrentSearchParty):void{
-			Artifact.artifactServiceController.getSpyQuestions(friend,currentSearchParty);
+		public function getSpyQuestions(gameProgress:GameProgress):void{
+			Artifact.artifactServiceController.getSpyQuestions(gameProgress);
 		}
 		
-		public function grantSpyProgress():void{
-			
+		public function grantSpyProgress(answers:Array,gameProgress:GameProgress):void{
+			Artifact.artifactServiceController.grantSpyProgress(answers,gameProgress);
 		}
 		public function findCommonFriendsById(artifactId:int):int{
 			var numberOfFriends:int=0;
