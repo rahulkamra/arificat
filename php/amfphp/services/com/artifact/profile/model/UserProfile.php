@@ -14,7 +14,7 @@ class UserProfile {
     public $_explicitType="com.artifact.profile.model.UserProfile";
     public $id;
     public $age;
-    public $politicalView;
+    public $politicalview;
     public $religion;
     public $language;
     public $humour;

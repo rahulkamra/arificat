@@ -27,7 +27,7 @@ class UserProfileDAO {
             $userprofile->imgurl=$tempArray['imgurl'];
             $userprofile->job=$tempArray['job'];
             $userprofile->language=$tempArray['language'];
-            $userprofile->politicalView=$tempArray['politicalview'];
+            $userprofile->politicalview=$tempArray['politicalview'];
             $userprofile->religion=$tempArray['religion'];
             $userprofile->school=$tempArray['school'];
         }

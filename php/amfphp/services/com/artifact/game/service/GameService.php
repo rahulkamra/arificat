@@ -37,12 +37,10 @@ class GameService {
         
     }
 
-    public function getSpyQuestions($friend,$currentSearchParty){
+    public function getSpyQuestions($gameProgress){
         $user=$_SESSION['loggedin_user'];
         
-        settype($friend,"object");
-        settype($currentSearchParty,"object");
-        settype($friend->user,"object");
+        settype($gameProgress,"object");
         
         $classvar=get_class_vars("UserProfile");
         $class=new ReflectionClass("UserProfile");
@@ -57,7 +55,7 @@ class GameService {
         $randomIndex=$gameUtil->giveRandomNumbers();
 
         $gamedao=new GameDAO();
-        $dataArray=$gamedao->getSpyQuestion($user, $friend, $currentSearchParty);
+        $dataArray=$gamedao->getSpyQuestion($user, $gameProgress);
 
         $questioniar=array();
         for($count = 0 ;$count < 5 ; $count ++){//randomizing questions
@@ -75,8 +73,17 @@ class GameService {
 
     }
 
-    public function grantSpyProgress($answers){
-         settype($answers,"object");
+    public function grantSpyProgress($answers,$gameProgress){
+         //$answers=array();
+         settype($answers,"array");
+         settype($gameProgress,"object");
+         for($count = 0 ; $count < count($answers) ; $count++){
+             settype($answers[$count],"object");
+         }
+         $gameDao=new GameDAO();
+         $correntAnswers=$gameDao->checkAnswers($answers, $gameProgress);
+         
+         return $correntAnswers;
 
     }
 }
