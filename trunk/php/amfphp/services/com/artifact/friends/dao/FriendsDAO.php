@@ -37,7 +37,7 @@ class FriendsDAO {
             $userProfile->imgurl=$row['imgurl'];
             $userProfile->job=$row['job'];
             $userProfile->language=$row['language'];
-            $userProfile->politicalView=$row['politicalview'];
+            $userProfile->politicalview=$row['politicalview'];
             $userProfile->religion=$row['religion'];
             $userProfile->school=$row['school'];
             array_push($friendList, $userProfile);
