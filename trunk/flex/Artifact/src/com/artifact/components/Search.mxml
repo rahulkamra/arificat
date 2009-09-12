@@ -139,6 +139,7 @@
 	</mx:Canvas>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.servermodel.GameProgress;
 			import com.artifact.servermodel.Answer;
 			import com.artifact.servermodel.UserProfile;
 			import com.artifact.servermodel.CurrentSearchParty;
@@ -158,6 +159,7 @@
 			public var experienceGained:int;
 			[Bindable]
 			public var correctAnswers:int;
+			public var gameProgress:GameProgress;
 				
 			override public function set data(value:Object):void{
 				this._data=value as CurrentSearchParty;
@@ -194,7 +196,12 @@
 					if(tileListFriends.selectedItem){
 						var friend:UserProfile=tileListFriends.dataProvider[tileListFriends.selectedIndex] as UserProfile;
 						var currentSearchParty:CurrentSearchParty=_data;
-						Artifact.artifactUIController.getSpyQuestions(friend,currentSearchParty);	
+						var gameProgress:GameProgress=new GameProgress;
+						
+						gameProgress.csp=currentSearchParty.id;
+						gameProgress.friend=friend.id;
+						this.gameProgress=gameProgress;
+						Artifact.artifactUIController.getSpyQuestions(gameProgress);	
 					}
 					//currentState ='questions'
 				}
@@ -205,13 +212,13 @@
 					var eachChild:Question=vbxQuestions.getChildren()[count] as Question;
 					var answer:Answer=new Answer();
 					answer.question=eachChild.question.text;
-					answer.answer=eachChild.radiogroup1.selection.label;
-					answerArray.push(answerArray);	
-					
+					answer.answer=eachChild.radiogroup1.selection?eachChild.radiogroup1.selection.label:null;
+					answerArray.push(answer);	
 				}
+				Artifact.artifactUIController.grantSpyProgress(answerArray,gameProgress);
 				correctAnswers=12;
 				experienceGained=18;
-				currentState='report';
+				//currentState='report';
 			}
 			public function goToBuyReport():void{
 				experienceGained=66;

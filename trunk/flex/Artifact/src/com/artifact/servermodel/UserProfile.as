@@ -11,7 +11,7 @@ package com.artifact.servermodel
 		
 			public var id:int;
 		    public var age:int;
-		    public var politicalView:String;
+		    public var politicalview:String;
 		    public var religion:String;
 		    public var language:String;
 		    public var humour:String;

@@ -4,9 +4,9 @@ package com.artifact.controller
 	import com.artifact.servermodel.ArtifactInfo;
 	import com.artifact.servermodel.CompleteProfileWrapper;
 	import com.artifact.servermodel.CurrentSearchParty;
+	import com.artifact.servermodel.GameProgress;
 	import com.artifact.servermodel.Questioniar;
 	import com.artifact.servermodel.User;
-	import com.artifact.servermodel.UserProfile;
 	
 	import mx.controls.Alert;
 	import mx.core.Application;
@@ -134,22 +134,45 @@ package com.artifact.controller
 		 * 
 		 **/
 		 
-		 public function getSpyQuestions(friend:UserProfile,currentSearchParty:CurrentSearchParty):void{
+		 public function getSpyQuestions(gameProgress:GameProgress):void{
 		 	var ro:RemoteObject=new RemoteObject;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
 			ro.destination=ArtifactServiceConstants.GAME_SERVICE;
 			ro.source=ArtifactServiceConstants.GAME_SERVICE;
 			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
 			ro.addEventListener(ResultEvent.RESULT,getSpyQuestionsResultHandler);
-			ro.getSpyQuestions(friend,currentSearchParty);	
+			ro.getSpyQuestions(gameProgress);	
 		 }
 		 
 		 
 		 public function getSpyQuestionsResultHandler(event:ResultEvent):void{
 		 	var qu:Questioniar;
-		 	trace(event.result)
+		 	var result:Array=event.result as Array;
 		 	ArtifactUIController.currentSearch.currentState ='questions'
 		 	ArtifactUIController.currentSearch.rptQuestions.dataProvider=event.result;
+		 }
+		 
+		 /**
+		 * 
+		 * 
+		 * 
+		 **/
+		 
+		 public function grantSpyProgress(answers:Array,gameProgress:GameProgress):void{
+		 	var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GAME_SERVICE;
+			ro.source=ArtifactServiceConstants.GAME_SERVICE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,grantSpyProgressResultHandler);
+			ro.grantSpyProgress(answers,gameProgress);	
+		 }
+		 
+		 public function grantSpyProgressResultHandler(event:ResultEvent):void{
+		 	var array:Array
+		 	trace(event.result)
+		 	trace("end");
+		 	
 		 }
 		 
 
