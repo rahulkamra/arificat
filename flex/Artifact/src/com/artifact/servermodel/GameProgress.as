@@ -9,8 +9,8 @@ package com.artifact.servermodel
 		}
 		
 	     public var id:int;
-   		 public var friend:int;
-    	 public var csp:int;
+   		 public var friend:UserProfile;
+    	 public var csp:CurrentSearchParty;
     	 public var progressType:ProgressType;
 
    
