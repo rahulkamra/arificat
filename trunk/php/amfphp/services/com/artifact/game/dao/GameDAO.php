@@ -37,13 +37,9 @@ class GameDAO {
         $con = Connection::createConnection();
         //first we need to check weather that person has spied him already or not
         $spy=ServerConstants::SPY;
-        $chkResult = mysql_query("select * from gameprogress where cspid=$gameProgress->csp AND friendid =$gameProgress->friend AND progresstypeid=(select id from progresstype where progresstype ='$spy')");
-        
-        if(mysql_num_rows($chkResult) == 1){
-            Connection::closeConnection($con);
-            return null;
-        }else{
-            $result=mysql_query("select * from userprofile where userprofile.userid !=$gameProgress->friend order by rand() limit 2");
+        if($this->canSpy($gameProgress)){
+            $friendUser=$gameProgress->friend->user;
+            $result=mysql_query("select * from userprofile where userprofile.userid !=$friendUser->id order by rand() limit 2");
             $dataArray=array();
             while($row = mysql_fetch_array($result)){
                 $userprofile=new UserProfile;
@@ -62,68 +58,81 @@ class GameDAO {
                 array_push($dataArray, $userprofile);
             }
             /* Getting data of friend whom we want to spy i.e. the right options */
-            $friendData=mysql_query("select * from userprofile where userid = $gameProgress->friend");
-            while($row = mysql_fetch_array($friendData)){
-                $userprofile=new UserProfile;
-                $userprofile->id=$row['id'];
-                $userprofile->setUser($user);
-                $userprofile->age=$row['age'];
-                $userprofile->country=$row['country'];
-                $userprofile->favgame=$row['favgame'];
-                $userprofile->humour=$row['humour'];
-                $userprofile->imgurl=$row['imgurl'];
-                $userprofile->job=$row['job'];
-                $userprofile->language=$row['language'];
-                $userprofile->politicalview=$row['politicalview'];
-                $userprofile->religion=$row['religion'];
-                $userprofile->school=$row['school'];
-                array_push($dataArray, $userprofile);
-            }
+            $friendProfile=$gameProgress->friend;
+            array_push($dataArray, $friendProfile);
+            Connection::closeConnection($con);
+            return $dataArray;
+        }else{
+            Connection::closeConnection($con);
+            return null;
         }
-        
-        Connection::closeConnection($con);
-        return $dataArray;
     }
 
+    public function canSpy($gameProgress){
+        $spy=ServerConstants::SPY;
+        $csp=$gameProgress->csp;
+        $friend=$gameProgress->friend;
+        $friendUser=$friend->user;
+        $chkResult = mysql_query("select * from gameprogress where cspid=$csp->id AND friendid =$friendUser->id AND progresstypeid=(select id from progresstype where progresstype ='$spy')");
+        if(mysql_num_rows($chkResult) == 1){
+            //cannot spy
+            return false;
+        }else{
+            //can spy
+            return true;
+        }
+        
+    }
     public function checkAnswers($answers,$gameProgress){
         $correctAnswers=0;
         $con = Connection::createConnection();
-        for($count = 0 ; $count < count($answers) ; $count++){
-            $eachAnswer=$answers[$count];
-            if($eachAnswer->answer == null){
-                continue;
-            }
+        if($this->canSpy($gameProgress)){
+            for($count = 0 ; $count < count($answers) ; $count++){
+                $eachAnswer=$answers[$count];
+                if($eachAnswer->answer == null){
+                    continue;
+                }
+                $friend=$gameProgress->friend;
+                $friendUser=$friend->user;
 
-            $chkResult = mysql_query("select * from userprofile where userid = $gameProgress->friend AND $eachAnswer->question =  '$eachAnswer->answer' ");
-
-            if($chkResult == false){
-                 return mysql_error();
+                $chkResult = mysql_query("select * from userprofile where userid = $friendUser->id AND $eachAnswer->question =  '$eachAnswer->answer' ");
+                
+                if($chkResult == false){
+                     return mysql_error();
+                }
+                 if(mysql_num_rows($chkResult) == 1){
+                     $correctAnswers++;
+                 }
             }
-             if(mysql_num_rows($chkResult) == 1){
-                 $correctAnswers++;
+            //save it in game progress so that person will not b able to spy again
+            $spy=ServerConstants::SPY;
+            $spyProgress=mysql_query("select * from progresstype where progresstype = '$spy' ");
+             while($row = mysql_fetch_array($spyProgress)){
+                 $progressType=new ProgressType();
+                 $progressType->id=$row['id'];
+                 $progressType->progressType=$row['progresstype'];
              }
+            $gameProgress->progressType=$progressType;
+            $this->addGameProgress($gameProgress);
+            Connection::closeConnection($con);
+            return $correctAnswers;
+        }else{
+            return -1;
         }
-        //save it in game progress so that person will not b able to spy again
-        $spy=ServerConstants::SPY;
-        $spyProgress=mysql_query("select * from progresstype where progresstype = '$spy' ");
-         while($row = mysql_fetch_array($spyProgress)){
-             $progressType=new ProgressType();
-             $progressType->id=$row['id'];
-             $progressType->progressType=$row['progresstype'];
-         }
-        Connection::closeConnection($con);
-        return $correctAnswers;
-        
     }
 
     /*
      * Expects a complete game progress object with progressType as another object of ProgressType class
      *
      */
-    public function addGameProgress(GameProgress $gameProgress){
+    public function addGameProgress($gameProgress){
         $progressType=$gameProgress->progressType;
-        $result = mysql_query("Insert into gameprogress values (NULL,$gameProgress->csp,$gameProgress->friend,$gameProgress->progressType->id)");
-        $gameProgress->id=mysql_insert_id();
+        $csp=$gameProgress->csp;
+        $friend=$gameProgress->friend;
+        $friendUser=$friend->user;
+        
+      //  $result = mysql_query("Insert into gameprogress values (NULL,$csp->id,$friendUser->id,$progressType->id)");
+       // $gameProgress->id=mysql_insert_id();
         return $gameProgress;
     }
 }

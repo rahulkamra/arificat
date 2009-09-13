@@ -98,5 +98,16 @@ class CurrentSearchPartyDAO {
 
     }
 
+    //update  currentsearchparty,artifactinfo  set progress = 10 where currentsearchparty.id = 1 AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1
+    public function updateCurrentSearchPartyProgress($currentSearchParty){
+        $con = Connection::createConnection();
+        $result=mysql_query("update  currentsearchparty,artifactinfo  set progress = '$currentSearchParty->progress' where currentsearchparty.id = '$currentSearchParty->id' AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1");
+        if(mysql_affected_rows() < 1){
+            Connection::closeConnection($con);
+            return "update  currentsearchparty,artifactinfo  set progress = '$currentSearchParty->progress' where currentsearchparty.id = '$currentSearchParty->id' AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1";
+        }
+        return $currentSearchParty;
+    }
+
 }
 ?>
