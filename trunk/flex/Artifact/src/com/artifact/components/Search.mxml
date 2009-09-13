@@ -198,8 +198,8 @@
 						var currentSearchParty:CurrentSearchParty=_data;
 						var gameProgress:GameProgress=new GameProgress;
 						
-						gameProgress.csp=currentSearchParty.id;
-						gameProgress.friend=friend.id;
+						gameProgress.csp=currentSearchParty;
+						gameProgress.friend=friend;
 						this.gameProgress=gameProgress;
 						Artifact.artifactUIController.getSpyQuestions(gameProgress);	
 					}
@@ -216,9 +216,6 @@
 					answerArray.push(answer);	
 				}
 				Artifact.artifactUIController.grantSpyProgress(answerArray,gameProgress);
-				correctAnswers=12;
-				experienceGained=18;
-				//currentState='report';
 			}
 			public function goToBuyReport():void{
 				experienceGained=66;

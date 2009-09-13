@@ -8,6 +8,8 @@ package com.artifact.controller
 	import com.artifact.servermodel.User;
 	import com.artifact.servermodel.UserProfile;
 	
+	import mx.controls.Alert;
+	
 	public class ArtifactUIController
 	{
 		public function ArtifactUIController()
@@ -83,6 +85,16 @@ package com.artifact.controller
 			return eachObj;
 		}
 		
+		
+		public function updateCurrentSearchParty(updatedCurrentSearchParty:CurrentSearchParty):void{
+			for(var count:int = 0 ; count<currentSearchParties.length ; count++){
+				var eachItem:CurrentSearchParty=currentSearchParties[count]  as CurrentSearchParty;
+				if(eachItem.id == updatedCurrentSearchParty.id){
+					currentSearchParties[count] = updatedCurrentSearchParty;
+					Alert.show('updated     '+ count)
+				}
+			}
+		}
 		
 		
 	}

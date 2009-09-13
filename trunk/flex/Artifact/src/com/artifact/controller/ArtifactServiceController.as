@@ -5,7 +5,7 @@ package com.artifact.controller
 	import com.artifact.servermodel.CompleteProfileWrapper;
 	import com.artifact.servermodel.CurrentSearchParty;
 	import com.artifact.servermodel.GameProgress;
-	import com.artifact.servermodel.Questioniar;
+	import com.artifact.servermodel.GameProgressResponse;
 	import com.artifact.servermodel.User;
 	
 	import mx.controls.Alert;
@@ -146,7 +146,10 @@ package com.artifact.controller
 		 
 		 
 		 public function getSpyQuestionsResultHandler(event:ResultEvent):void{
-		 	var qu:Questioniar;
+		 	if(event.result == null){
+		 		Alert.show('You cannot spy the same person twice')
+		 		return;
+		 	}
 		 	var result:Array=event.result as Array;
 		 	ArtifactUIController.currentSearch.currentState ='questions'
 		 	ArtifactUIController.currentSearch.rptQuestions.dataProvider=event.result;
@@ -169,9 +172,31 @@ package com.artifact.controller
 		 }
 		 
 		 public function grantSpyProgressResultHandler(event:ResultEvent):void{
-		 	var array:Array
-		 	trace(event.result)
-		 	trace("end");
+		 	if(event.result == null){
+		 		Alert.show('You cannot spy the same person twice')
+		 		return;
+		 	}
+		 	
+		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
+		 	if(gameProgressResponse.isSomebodyGetArtifact){
+		 		Alert.show('Somevody already got the artifact');
+		 		return;
+		 	}
+		 	var updatedSearchParty:CurrentSearchParty=gameProgressResponse.currentSearchParty;
+		 	
+		 	Artifact.artifactUIController.updateCurrentSearchParty(updatedSearchParty);
+		 	ArtifactUIController.currentSearch.data=updatedSearchParty;
+		 	ArtifactUIController.currentSearchParties=ObjectUtil.copy(ArtifactUIController.currentSearchParties) as Array;
+		 	var percentObjtained:int=gameProgressResponse.percentObjtained;
+		 	var correntAnswers:int=percentObjtained/(5*ArtifactUIController.gameProfile.spyLvl);
+		 	ArtifactUIController.currentSearch.experienceGained=percentObjtained;
+		 	ArtifactUIController.currentSearch.correctAnswers=correntAnswers;
+		 	ArtifactUIController.currentSearch.currentState='report';
+		 	
+		 	trace(gameProgressResponse.percentObjtained);
+		 	trace('end');
+		 	
+		 	
 		 	
 		 }
 		 

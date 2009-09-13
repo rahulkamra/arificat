@@ -10,8 +10,13 @@
 			public function set percentComplete(_percentComlete:Number):void{
 				this._percentComlete=_percentComlete;
 				callLater(function setProgressBar():void{
-					progressBar.setProgress(_percentComlete,100);
-					toolTip=_percentComlete.toString() +"%";
+					if(_percentComlete > 100){
+						progressBar.setProgress(100,100);
+						toolTip=100 +"%";
+					}else{
+						progressBar.setProgress(_percentComlete,100);
+						toolTip=_percentComlete.toString() +"%";
+					}
 				});
 			}
 			public function get percentComplete():Number{
