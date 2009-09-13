@@ -42,5 +42,16 @@ class InventoryDAO {
         Connection::closeConnection($con);
         return $myinventory;
     }
+
+    public function addToInventory(Inventory $inventory){
+        $con = Connection::createConnection();
+        $artifact=$inventory->artifact;
+        $user=$inventory->user;
+        $result = mysql_query("Insert into inventory values (NULL,$inventory->artifactLvl,$artifact->id,$user->id)");
+        $inventory->id=mysql_insert_id();
+        mysql_query("commit");
+        Connection::closeConnection($con);
+        return $inventory;
+    }
 }
 ?>

@@ -128,8 +128,12 @@ class GameService {
          $gameResponse->percentObjtained=$progressObtained;
              
         if($gameProgress->csp->progress >= 100 ){
+              
              //add to inventory
              //chk for lvl up
+             //cleanup the current search party
+             //make item inactive
+             
              $gameResponse->isActifactObtained=true;
          }
          
