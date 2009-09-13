@@ -17,5 +17,11 @@ class InventoryUtil {
         $inventoryList=$inventoryDao->getInventory($user);
         return $inventoryList;
     }
+
+    public function addToInventory($inventory){
+        $inventoryDao=new InventoryDAO();
+        $inventoryRet=$inventoryDao->addToInventory($inventory);
+        return $inventoryRet;
+    }
 }
 ?>
