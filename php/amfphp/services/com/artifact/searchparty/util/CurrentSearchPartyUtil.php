@@ -22,5 +22,11 @@ class CurrentSearchPartyUtil {
         $friendSearchParties=$currentSearchPartyDAO->getFriendSearchParty($user);
         return $friendSearchParties;
     }
+
+    public function updateCurrentSearchPartyProgress($currentSearchParty){
+        $currentSearchPartyDAO=new CurrentSearchPartyDAO;
+        $updatedCSP=$currentSearchPartyDAO->updateCurrentSearchPartyProgress($currentSearchParty);
+        return $updatedCSP;
+    }
 }
 ?>
