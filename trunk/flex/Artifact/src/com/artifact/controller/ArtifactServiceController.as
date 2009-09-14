@@ -178,6 +178,8 @@ package com.artifact.controller
 		 	}
 		 	
 		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
+		 	trace(gameProgressResponse);
+		 	trace(event.result);
 		 	if(gameProgressResponse.isSomebodyGetArtifact){
 		 		Alert.show('Somevody already got the artifact');
 		 		return;
@@ -192,7 +194,15 @@ package com.artifact.controller
 		 	ArtifactUIController.currentSearch.experienceGained=percentObjtained;
 		 	ArtifactUIController.currentSearch.correctAnswers=correntAnswers;
 		 	ArtifactUIController.currentSearch.currentState='report';
-		 	
+		 	if(gameProgressResponse.isActifactObtained){
+		 		//means u get the artifact hurray :)
+		 		//change game profile
+		 		//add item into inventory
+		 		//diable the current items
+		 		
+		 		//disable the back button if u can !! so that the user cannot go back he can only close the app
+		 		
+		 	}
 		 	trace(gameProgressResponse.percentObjtained);
 		 	trace('end');
 		 	
