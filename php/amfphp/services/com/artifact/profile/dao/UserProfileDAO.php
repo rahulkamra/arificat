@@ -34,5 +34,31 @@ class UserProfileDAO {
         Connection::closeConnection($con);
         return $userprofile;
     }
+    //SELECT globallevel from experience where exp > 2000 limit 1
+    public function giveExperience($gameProfile,$expPoints){
+        $con = Connection::createConnection();
+        $user=$gameProfile->user;
+        $update = mysql_query("update gameprofile set exp = $expPoints where userid = $user->id");
+        $gameProfile->exp=$expPoints;
+        
+        $chkForLvlUp=mysql_query("SELECT globallevel from experience where exp > $expPoints limit 1");//limit is one so only one row is obtained
+         while($row = mysql_fetch_array($chkForLvlUp)){
+            $globalLevel=$row['globallevel'];
+            break;
+         }
+
+         $globalLevel=$globalLevel-1;
+         if($globalLevel != $gameProfile->globalLvl){
+             //level is up update the game profile
+             $updateProfile=mysql_query("update gameprofile set globallvl = $globalLevel where userid = $user->id");
+             $gameProfile->globalLvl=$globalLevel;
+         }
+         
+         mysql_query("commit");
+
+        Connection::closeConnection($con);
+        return $gameProfile;
+        
+    }
 }
 ?>

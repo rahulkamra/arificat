@@ -11,15 +11,27 @@
  */
 include_once("../dao/GameDAO.php");
 include_once("../util/GameUtil.php");
+
 include_once("../model/Questioniar.php");
 include_once("../model/GameProgressResponse.php");
 include_once("../model/ProgressType.php");
+
 include_once("../../searchparty/util/CurrentSearchPartyUtil.php");
 include_once("../../searchparty/dao/CurrentSearchPartyDAO.php");
 include_once("../../searchparty/model/CurrentSearchParty.php");
 
-include_once("../../util/properties/ServerConstants.php");
+include_once("../../info/util/ArtifactUtil.php");
+include_once("../../info/dao/ArtifactDAO.php");
+include_once("../../info/model/ArtifactInfo.php");
 
+include_once("../../inventory/util/InventoryUtil.php");
+include_once("../../inventory/model/Inventory.php");
+include_once("../../inventory/dao/InventoryDAO.php");
+
+include_once("../../profile/model/UserProfile.php");
+include_once("../../profile/dao/UserProfileDAO.php");
+
+include_once("../../util/properties/ServerConstants.php");
 include_once("../../util/dbconnection/Connection.php");
 include_once("../../util/properties/Database.php");
 
@@ -101,13 +113,14 @@ class GameService {
          settype($gameProgress->csp->artifact,"object");
          settype($gameProgress->progressType,"object");
          settype($gameProgress->friend->user,"object");
-         $currentUserProfile=$_SESSION['game_profile'];
+         $currentUserGameProfile=$_SESSION['game_profile'];
          for($count = 0 ; $count < count($answers) ; $count++){
              settype($answers[$count],"object");
          }
-         $gameDao=new GameDAO();
 
+         $gameDao=new GameDAO();
          $correntAnswers=$gameDao->checkAnswers($answers, $gameProgress);
+         
          //cannot spy two persons at time same time
          if($correntAnswers == -1){
              return null;
@@ -115,7 +128,8 @@ class GameService {
              //no need of update if corrent answers is zero
              $gameResponse->isSomebodyGetArtifact=false;
          }else{
-             $progressObtained=($correntAnswers*5)*$currentUserProfile->spyLvl;
+             
+             $progressObtained=($correntAnswers*5)*$currentUserGameProfile->spyLvl;
              $gameProgress->csp->progress +=$progressObtained;
              $currentSearchPartyUtil=new CurrentSearchPartyUtil;
              $updatedSearchParty=$currentSearchPartyUtil->updateCurrentSearchPartyProgress($gameProgress->csp);
@@ -128,12 +142,12 @@ class GameService {
          $gameResponse->percentObjtained=$progressObtained;
              
         if($gameProgress->csp->progress >= 100 ){
-              
-             //add to inventory
-             //chk for lvl up
-             //cleanup the current search party
-             //make item inactive
-             
+
+             $gameUtil=new GameUtil;
+             $gameUtilRes=$gameUtil->obtainArtifact($gameProgress->csp,$currentUserGameProfile);
+             $updatedGameProfile=$gameUtilRes[1];
+             $gameResponse->updatedGameProfile=$updatedGameProfile;
+             $gameResponse->artifact=$gameUtilRes[0];
              $gameResponse->isActifactObtained=true;
          }
          

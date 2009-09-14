@@ -43,7 +43,7 @@ class CurrentSearchPartyDAO {
      **/
     public function getCurrentSearchParty(User $user){
         $con = Connection::createConnection();
-        $result=mysql_query("select currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact where currentsearchparty.userid = $user->id AND currentsearchparty.artifactid=artifact.id");
+        $result=mysql_query("select currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact where currentsearchparty.userid = $user->id AND currentsearchparty.artifactid=artifact.id AND artifact.isactive = 1");
         $currentSearchParties=array();
         while($row = mysql_fetch_array($result)){
             $currentSearchParty=new CurrentSearchParty();
@@ -69,7 +69,7 @@ class CurrentSearchPartyDAO {
     
     public function getFriendSearchParty(User $user){
         $con = Connection::createConnection();
-        $result=mysql_query("select user.id as user_id,user.username as user_name,currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact,user  where currentsearchparty.userid in (select user.id from user where user.id != $user->id ) AND currentsearchparty.artifactid=artifact.id AND user.id=currentsearchparty.userid");
+        $result=mysql_query("select user.id as user_id,user.username as user_name,currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact,user  where currentsearchparty.userid in (select user.id from user where user.id != $user->id ) AND currentsearchparty.artifactid=artifact.id AND user.id=currentsearchparty.userid AND artifact.isactive = 1");
         $friendtSearchParties=array();
         while($row = mysql_fetch_array($result)){
             $friendSearchParty=new CurrentSearchParty();
@@ -103,9 +103,11 @@ class CurrentSearchPartyDAO {
         $con = Connection::createConnection();
         $result=mysql_query("update  currentsearchparty,artifactinfo  set progress = '$currentSearchParty->progress' where currentsearchparty.id = '$currentSearchParty->id' AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1");
         if(mysql_affected_rows() < 1){
+            //means the current search party we want to update the artifact of that party is not active
             Connection::closeConnection($con);
-            return "update  currentsearchparty,artifactinfo  set progress = '$currentSearchParty->progress' where currentsearchparty.id = '$currentSearchParty->id' AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1";
+            return null;
         }
+        Connection::closeConnection($con);
         return $currentSearchParty;
     }
 
