@@ -43,7 +43,7 @@ class InventoryDAO {
         return $myinventory;
     }
 
-    public function addToInventory(Inventory $inventory){
+    public function addToInventory($inventory){
         $con = Connection::createConnection();
         $artifact=$inventory->artifact;
         $user=$inventory->user;

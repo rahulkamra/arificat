@@ -48,7 +48,50 @@ class GameUtil {
             }
             return $optionIndex;
     }
-    
+
+    public function obtainArtifact($currentSearchParty,$gameProfile){
+
+             //add to inventory
+             //give experience i.e update game profile
+             //chk for lvl up
+             //make item inactive
+
+             /*
+              * Adding to inventory
+              */
+             $inventoryUtil=new InventoryUtil();
+             $inventory=new Inventory();
+             
+             $inventory->artifact=$currentSearchParty->artifact;
+             $inventory->artifactLvl=$currentSearchParty->artifactLvl;
+             $inventory->user=$currentSearchParty->user;
+             $inventory=$inventoryUtil->addToInventory($inventory);
+
+             /*
+              * Calulate exp
+              */
+              $exp=$currentSearchParty->artifactLvl*100;
+              $exp=$gameProfile->exp+$exp;
+
+              /*
+               * Update game profile and checking for levelup and updateing level
+               */
+
+               $userProfileDAO=new UserProfileDAO;
+               $updatedProfile=$userProfileDAO->giveExperience($gameProfile,$exp);//exp is the updated exp
+                /*
+                 * Making the artifact inactive
+                 */
+        
+               $artifactUtil=new ArtifactUtil();
+               $artifactUtil->makeArtifactInactive($currentSearchParty->artifact);
+
+               $returnArray=array();
+               array_push($returnArray, $inventory);//on position 0 inventory will b thr
+               array_push($returnArray, $updatedProfile);//on 1st position updated profile
+               
+               return $returnArray;
+    }
 
 }
 ?>

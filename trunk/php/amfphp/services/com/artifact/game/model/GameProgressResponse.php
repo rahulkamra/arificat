@@ -15,7 +15,9 @@ class GameProgressResponse {
     
     public $currentSearchParty;
     public $isActifactObtained;
+    public $artifact;
     public $percentObjtained;
     public $isSomebodyGetArtifact;
+    public $updatedGameProfile;
 }
 ?>

@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 09, 2009 at 07:10 PM
+-- Generation Time: Sep 14, 2009 at 07:37 AM
 -- Server version: 5.0.45
 -- PHP Version: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `artifactdb`
@@ -64,12 +58,61 @@ CREATE TABLE IF NOT EXISTS `currentsearchparty` (
   PRIMARY KEY  (`id`),
   KEY `FK_currentsearchparty_1` (`userid`),
   KEY `FK_currentsearchparty_2` (`artifactid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `currentsearchparty`
 --
 
+INSERT INTO `currentsearchparty` (`id`, `userid`, `artifactid`, `artifactlvl`, `progress`) VALUES
+(1, 4, 7, 1, 0),
+(2, 4, 6, 1, 0),
+(3, 4, 1, 1, 0),
+(4, 4, 9, 1, 0),
+(5, 4, 4, 1, 0),
+(6, 4, 8, 1, 30),
+(7, 2, 1, 1, 0),
+(8, 2, 2, 1, 0),
+(9, 2, 3, 1, 0),
+(10, 2, 4, 1, 0),
+(11, 2, 6, 1, 0),
+(12, 2, 7, 1, 0),
+(13, 6, 1, 1, 0),
+(14, 6, 3, 1, 0),
+(15, 6, 2, 1, 0),
+(16, 6, 4, 1, 0),
+(17, 2, 5, 1, 0),
+(18, 1, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `experience`
+--
+
+CREATE TABLE IF NOT EXISTS `experience` (
+  `globallevel` int(3) NOT NULL auto_increment,
+  `exp` int(10) NOT NULL,
+  PRIMARY KEY  (`globallevel`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `experience`
+--
+
+INSERT INTO `experience` (`globallevel`, `exp`) VALUES
+(1, 0),
+(2, 100),
+(3, 500),
+(4, 1500),
+(5, 2300),
+(6, 3500),
+(7, 4000),
+(8, 4700),
+(9, 5000),
+(10, 6300),
+(11, 7500),
+(12, 9000);
 
 -- --------------------------------------------------------
 
@@ -158,14 +201,22 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `artifactid` int(10) unsigned NOT NULL default '0',
   `userid` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
+  UNIQUE KEY `artifactid` (`artifactid`),
+  UNIQUE KEY `artifactid_2` (`artifactid`),
+  UNIQUE KEY `artifactid_3` (`artifactid`),
+  UNIQUE KEY `artifactid_4` (`artifactid`),
+  UNIQUE KEY `artifactid_5` (`artifactid`),
   KEY `FK_inventory_1` (`userid`),
   KEY `FK_inventory_2` (`artifactid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `inventory`
 --
 
+INSERT INTO `inventory` (`id`, `artifactlevel`, `artifactid`, `userid`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 1);
 
 -- --------------------------------------------------------
 
