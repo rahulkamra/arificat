@@ -10,7 +10,7 @@ package com.artifact.servermodel
 		
 		 public var currentSearchParty:CurrentSearchParty;
     	 public var isActifactObtained:Boolean;
-    	 public var artifact:ArtifactInfo;
+    	 public var artifact:Inventory;
     	 public var percentObjtained:int;
     	 public var isSomebodyGetArtifact:Boolean;
     	 public var updatedGameProfile:GameProfile;
