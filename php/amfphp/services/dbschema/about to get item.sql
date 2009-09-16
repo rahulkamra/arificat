@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2009 at 07:28 AM
+-- Generation Time: Sep 16, 2009 at 11:06 AM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.5
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `currentsearchparty` (
 --
 
 INSERT INTO `currentsearchparty` (`id`, `userid`, `artifactid`, `artifactlvl`, `progress`) VALUES
-(1, 4, 1, 1, 35),
+(1, 4, 1, 1, 99),
 (2, 2, 1, 1, 0),
 (3, 4, 2, 1, 0);
 
@@ -147,7 +147,7 @@ INSERT INTO `gameprofile` (`id`, `userid`, `gold`, `exp`, `globallvl`, `spylvl`,
 (1, 1, 0, 0, 1, 1, 0, 0, 0),
 (2, 2, 0, 0, 1, 1, 0, 0, 0),
 (3, 3, 0, 0, 1, 1, 0, 0, 0),
-(4, 4, 0, 0, 1, 1, 0, 0, 0),
+(4, 4, 1000, 0, 1, 1, 1, 0, 1),
 (5, 5, 0, 0, 1, 1, 0, 0, 0),
 (6, 6, 0, 0, 1, 1, 0, 0, 0),
 (7, 7, 0, 0, 1, 1, 0, 0, 0);
@@ -167,12 +167,14 @@ CREATE TABLE IF NOT EXISTS `gameprogress` (
   KEY `FK_gameprogress_1` (`friendid`),
   KEY `FK_gameprogress_2` (`cspid`),
   KEY `FK_gameprogress_3` (`progresstypeid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `gameprogress`
 --
 
+INSERT INTO `gameprogress` (`id`, `cspid`, `friendid`, `progresstypeid`) VALUES
+(1, 1, 2, 3);
 
 -- --------------------------------------------------------
 

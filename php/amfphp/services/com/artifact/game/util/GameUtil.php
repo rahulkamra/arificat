@@ -93,5 +93,25 @@ class GameUtil {
                return $returnArray;
     }
 
+
+     public function validateBuy($currentUserGameProfile,$gameProgress){
+        $price_of_info=$gameProgress->csp->artifactLvl*rand(0, 1000);
+        if($currentUserGameProfile->gold >= $price_of_info){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function validShare($currentUserGameProfile,$gameProgress){
+        $currentProgress=$gameProgress->csp->progress;
+        if($currentProgress >= 10 ){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
 }
 ?>
