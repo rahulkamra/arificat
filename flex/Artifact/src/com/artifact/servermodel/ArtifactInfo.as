@@ -11,7 +11,7 @@ package com.artifact.servermodel
 	 public var id:int;
    	 public var name:String;
      public var desc:String;
-     public var isActive:String;
+     public var isActive:Boolean;
 
 	}
 }

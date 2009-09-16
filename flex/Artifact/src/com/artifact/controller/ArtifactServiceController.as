@@ -180,34 +180,141 @@ package com.artifact.controller
 		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
 		 	trace(gameProgressResponse);
 		 	trace(event.result);
-		 	if(gameProgressResponse.isSomebodyGetArtifact){
-		 		Alert.show('Somevody already got the artifact');
+		 	
+		 	if(genericProgressResultHandler(event)){
 		 		return;
 		 	}
+		 	
 		 	var updatedSearchParty:CurrentSearchParty=gameProgressResponse.currentSearchParty;
 		 	
-		 	Artifact.artifactUIController.updateCurrentSearchParty(updatedSearchParty);
-		 	ArtifactUIController.currentSearch.data=updatedSearchParty;
-		 	ArtifactUIController.currentSearchParties=ObjectUtil.copy(ArtifactUIController.currentSearchParties) as Array;
+		 	//updating current search party
+		 	
 		 	var percentObjtained:int=gameProgressResponse.percentObjtained;
 		 	var correntAnswers:int=percentObjtained/(5*ArtifactUIController.gameProfile.spyLvl);
 		 	ArtifactUIController.currentSearch.experienceGained=percentObjtained;
 		 	ArtifactUIController.currentSearch.correctAnswers=correntAnswers;
 		 	ArtifactUIController.currentSearch.currentState='report';
+		 	
+		 	artifactObtainedResultHandler(event);
+
+		 	Artifact.artifactUIController.updateCurrentSearchParty(updatedSearchParty);
+		 	ArtifactUIController.currentSearch.data=updatedSearchParty;
+		 	ArtifactUIController.currentSearchParties=ObjectUtil.copy(ArtifactUIController.currentSearchParties) as Array;
+		 	trace(gameProgressResponse.percentObjtained);
+		 	trace('end');
+		 }
+		 /**
+		 * 
+		 * 
+		 **/
+		 
+		 public function grantScoutProgress(gameProgress:GameProgress):void{
+		 	var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GAME_SERVICE;
+			ro.source=ArtifactServiceConstants.GAME_SERVICE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,grantScoutProgressResultHandler);
+			ro.grantScoutProgress(gameProgress);	
+		 } 
+		 
+		 public function grantScoutProgressResultHandler(event:ResultEvent):void{
+		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
+		 	trace(gameProgressResponse);
+		 	trace(event.result);
+		 	
+		 	if(genericProgressResultHandler(event)){
+		 		return;
+		 	}
+		 	
+		 	var updatedSearchParty:CurrentSearchParty=gameProgressResponse.currentSearchParty;
+		 	
+		 	//updating current search party
+		 	
+		 	var percentObjtained:int=gameProgressResponse.percentObjtained;
+		 	ArtifactUIController.currentSearch.experienceGained=percentObjtained;
+		 	ArtifactUIController.currentSearch.currentState='report';
+		 	
+		 	artifactObtainedResultHandler(event);
+		 	Artifact.artifactUIController.updateCurrentSearchParty(updatedSearchParty);
+		 	ArtifactUIController.currentSearch.data=updatedSearchParty;
+		 	ArtifactUIController.currentSearchParties=ObjectUtil.copy(ArtifactUIController.currentSearchParties) as Array;
+		 	trace(gameProgressResponse.percentObjtained);
+		 	trace('end');
+		 }
+		 
+		 
+		 public function grantBuyProgress(gameProgress:GameProgress):void{
+		 	var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GAME_SERVICE;
+			ro.source=ArtifactServiceConstants.GAME_SERVICE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,grantBuyProgressResultHandler);
+			ro.grantBuyProgress(gameProgress);	
+		 }
+		 
+		 public function grantBuyProgressResultHandler(event:ResultEvent):void{
+		 	grantScoutProgressResultHandler(event);	
+		 }
+		 
+		 public function grantShareProgress(gameProgress:GameProgress):void{
+		 	var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GAME_SERVICE;
+			ro.source=ArtifactServiceConstants.GAME_SERVICE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,grantShareProgressResultHandler);
+			ro.grantShareProgress(gameProgress);	
+		 }
+		 
+		  public function grantShareProgressResultHandler(event:ResultEvent):void{
+		  	Alert.show('k');
+		  	grantScoutProgressResultHandler(event);	
+		 }	
+		 
+		 /**
+		 * 
+		 * If sombody got this artifact then this function  take care of disabling the 
+		 * current search party
+		 **/
+		 public function genericProgressResultHandler(event:ResultEvent):Boolean{
+		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
+		 	if(gameProgressResponse.isSomebodyGetArtifact){
+		 		Alert.show('Somevody already got the artifact');
+		 		gameProgressResponse.currentSearchParty.artifact.isActive=false;
+		 		//disable the item. assuming the item is cming as disabled	
+		 		Artifact.artifactUIController.updateCurrentSearchParty(gameProgressResponse.currentSearchParty);
+		 		ArtifactUIController.currentSearchParties=ObjectUtil.copy(ArtifactUIController.currentSearchParties) as Array;
+		 		return true;
+		 	}
+		 	return false;
+		 	
+		 	
+		 }
+		 
+		 /**
+		 * If artifact is obtained we need to call this function 
+		 * this function take care of adding the item into the inventory 
+		 * and making the item inactive 
+		 * 
+		 **/
+		 public function artifactObtainedResultHandler(event:ResultEvent):void{
+		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
 		 	if(gameProgressResponse.isActifactObtained){
 		 		//means u get the artifact hurray :)
 		 		//change game profile
+		 		ArtifactUIController.gameProfile=gameProgressResponse.updatedGameProfile;
 		 		//add item into inventory
-		 		//diable the current items
-		 		
+		 		ArtifactUIController.myArtifacts.push(gameProgressResponse.artifact);
+		 		ArtifactUIController.myArtifacts=ObjectUtil.copy(ArtifactUIController.myArtifacts) as Array;
+		 		//disable the current search party
+		 		gameProgressResponse.currentSearchParty.artifact.isActive=false;
+		 			
 		 		//disable the back button if u can !! so that the user cannot go back he can only close the app
+		 		ArtifactUIController.currentSearch.btnBack.visible=false;
 		 		
 		 	}
-		 	trace(gameProgressResponse.percentObjtained);
-		 	trace('end');
-		 	
-		 	
-		 	
 		 }
 		 
 

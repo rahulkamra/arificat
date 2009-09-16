@@ -51,6 +51,21 @@ package com.artifact.controller
 		public function grantSpyProgress(answers:Array,gameProgress:GameProgress):void{
 			Artifact.artifactServiceController.grantSpyProgress(answers,gameProgress);
 		}
+		
+		public function grantScoutProgress(gameProgress:GameProgress):void{
+			Artifact.artifactServiceController.grantScoutProgress(gameProgress);
+		}
+		public function grantBuyProgress(gameProgress:GameProgress):void{
+			Artifact.artifactServiceController.grantBuyProgress(gameProgress);
+		}
+		
+		public function grantShareProgress(gameProgress:GameProgress):void{
+			Artifact.artifactServiceController.grantShareProgress(gameProgress);
+		}
+		
+		
+		
+		
 		public function findCommonFriendsById(artifactId:int):int{
 			var numberOfFriends:int=0;
 			for(var count:int = 0 ; count < friendSearchParties.length ; count++){
