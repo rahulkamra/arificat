@@ -105,13 +105,7 @@ class GameDAO {
                  }
             }
             //save it in game progress so that person will not b able to spy again
-            $spy=ServerConstants::SPY;
-            $spyProgress=mysql_query("select * from progresstype where progresstype = '$spy' ");
-             while($row = mysql_fetch_array($spyProgress)){
-                 $progressType=new ProgressType();
-                 $progressType->id=$row['id'];
-                 $progressType->progressType=$row['progresstype'];
-             }
+            $progressType=$this->giveProgressTypeObj(ServerConstants::SPY);             
             $gameProgress->progressType=$progressType;
             $this->addGameProgress($gameProgress);
             Connection::closeConnection($con);
@@ -121,6 +115,15 @@ class GameDAO {
         }
     }
 
+    public function giveProgressTypeObj($progressType){
+        $progress=mysql_query("select * from progresstype where progresstype = '$progressType' ");
+             while($row = mysql_fetch_array($progress)){
+                 $progressType=new ProgressType();
+                 $progressType->id=$row['id'];
+                 $progressType->progressType=$row['progresstype'];
+        }
+        return $progressType;
+    }
     /*
      * Expects a complete game progress object with progressType as another object of ProgressType class
      *
@@ -131,9 +134,69 @@ class GameDAO {
         $friend=$gameProgress->friend;
         $friendUser=$friend->user;
         
-      //  $result = mysql_query("Insert into gameprogress values (NULL,$csp->id,$friendUser->id,$progressType->id)");
-       // $gameProgress->id=mysql_insert_id();
+        $result = mysql_query("Insert into gameprogress values (NULL,$csp->id,$friendUser->id,$progressType->id)");
+        $gameProgress->id=mysql_insert_id();
         return $gameProgress;
     }
+
+    //SELECT count(*) as count FROM gameprogress,progresstype where gameprogress.progresstypeid = progresstype.id AND progresstype.progresstype = "Spy";;
+    public function getScoutProgress($gameProgress,$gameProfile){
+        $con = Connection::createConnection();
+        $scout=ServerConstants::SCOUT;
+        $csp=$gameProgress->csp;
+        $count=mysql_query("SELECT count(*) as count FROM gameprogress,progresstype where gameprogress.progresstypeid = progresstype.id AND progresstype.progresstype = '$scout' AND gameprogress.cspid = $csp->id");
+        while($row = mysql_fetch_array($count)){
+            $rowcount=$row['count'];
+        }
+        $base=0.5;
+        $rowcount=$rowcount+1;
+        $progress=pow($base, $rowcount)*$gameProfile->scoutLvl*5;
+        $progressType=$this->giveProgressTypeObj(ServerConstants::SCOUT);
+        $insert=mysql_query("insert into gameprogress values (NULL,$csp->id,NULL,$progressType->id)");
+        mysql_query("commit");
+        Connection::closeConnection($con);
+        return $progress;
+    }
+
+    public function getBuyProgress($gameProfile,$gameProgress){
+        $con = Connection::createConnection();
+        $buy=ServerConstants::BUY;
+        $csp=$gameProgress->csp;
+        $friendUser= $gameProgress->friend->user;
+        $count=mysql_query("SELECT count(*) as count FROM gameprogress,progresstype where gameprogress.progresstypeid = progresstype.id AND progresstype.progresstype = '$buy' AND gameprogress.cspid = $csp->id AND gameprogress.friendid = $friendUser->id");
+        while($row = mysql_fetch_array($count)){
+            $rowcount=$row['count'];
+        }
+        $base=0.5;
+        $rowcount=$rowcount+1;
+        $progress=pow($base, $rowcount)*$gameProfile->buyLvl*5;
+        $progressType=$this->giveProgressTypeObj(ServerConstants::BUY);
+        $insert=mysql_query("insert into gameprogress values (NULL,$csp->id,$friendUser->id,$progressType->id)");
+        mysql_query("commit");
+        Connection::closeConnection($con);
+        return $progress;
+        
+    }
+
+    public function getShareProgress($gameProfile,$gameProgress){
+        $con = Connection::createConnection();
+        $share=ServerConstants::SHARE;
+        $csp=$gameProgress->csp;
+        $friendUser= $gameProgress->friend->user;
+        $count=mysql_query("SELECT count(*) as count FROM gameprogress,progresstype where gameprogress.progresstypeid = progresstype.id AND progresstype.progresstype = '$share' AND gameprogress.cspid = $csp->id AND gameprogress.friendid = $friendUser->id");
+        while($row = mysql_fetch_array($count)){
+            $rowcount=$row['count'];
+        }
+        $base=0.5;
+        $rowcount=$rowcount+1;
+        $progress=pow($base, $rowcount)*$gameProfile->shareLvl*5;
+        $progressType=$this->giveProgressTypeObj(ServerConstants::SHARE);
+        $insert=mysql_query("insert into gameprogress values (NULL,$csp->id,$friendUser->id,$progressType->id)");
+        mysql_query("commit");
+        Connection::closeConnection($con);
+        return $progress;
+    }
+
+   
 }
 ?>

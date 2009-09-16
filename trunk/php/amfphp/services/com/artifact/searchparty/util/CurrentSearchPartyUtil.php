@@ -28,5 +28,6 @@ class CurrentSearchPartyUtil {
         $updatedCSP=$currentSearchPartyDAO->updateCurrentSearchPartyProgress($currentSearchParty);
         return $updatedCSP;
     }
+
 }
 ?>

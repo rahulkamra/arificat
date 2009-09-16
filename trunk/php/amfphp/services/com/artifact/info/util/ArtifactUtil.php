@@ -17,5 +17,10 @@ class ArtifactUtil {
         $artifactDAO->makeArtifactInactive($artifact);
         return;
     }
+
+    public function isArtifactActive($artifact){
+        $artifactDAO=new ArtifactDAO();
+        return $artifactDAO->isArtifactActive($artifact);
+    }
 }
 ?>

@@ -64,7 +64,7 @@ class GameService {
         settype($gameProgress->csp->artifact,"object");
         settype($gameProgress->progressType,"object");
         settype($gameProgress->friend->user,"object");
-
+        
         $classvar=get_class_vars("UserProfile");
         $class=new ReflectionClass("UserProfile");
         $properties=$class->getProperties();
@@ -118,6 +118,15 @@ class GameService {
              settype($answers[$count],"object");
          }
 
+         $gameResponse->currentSearchParty=$gameProgress->csp;$artifactUtil=new ArtifactUtil;
+         $artifact=$gameProgress->csp->artifact;
+         if($artifactUtil->isArtifactActive($artifact) == 0){
+                 //artifact is in active
+            $gameResponse->isSomebodyGetArtifact=true;
+            return $gameResponse;
+         }
+         
+         
          $gameDao=new GameDAO();
          $correntAnswers=$gameDao->checkAnswers($answers, $gameProgress);
          
@@ -135,11 +144,11 @@ class GameService {
              $updatedSearchParty=$currentSearchPartyUtil->updateCurrentSearchPartyProgress($gameProgress->csp);
               if($updatedSearchParty == null){
                   $gameResponse->isSomebodyGetArtifact=true;
+                  return $gameResponse;
               }
          }
          
-         $gameResponse->currentSearchParty=$gameProgress->csp;
-         $gameResponse->percentObjtained=$progressObtained;
+        $gameResponse->percentObjtained=$progressObtained;
              
         if($gameProgress->csp->progress >= 100 ){
 
@@ -153,6 +162,187 @@ class GameService {
          
          return $gameResponse;
 
+    }
+
+    public function grantScoutProgress($gameProgress){
+         $gameResponse=new GameProgressResponse();
+         settype($gameProgress,"object");
+         settype($gameProgress,"object");
+         settype($gameProgress->friend,"object");
+         settype($gameProgress->csp,"object");
+         settype($gameProgress->csp->user,"object");
+         settype($gameProgress->csp->artifact,"object");
+         settype($gameProgress->progressType,"object");
+         settype($gameProgress->friend->user,"object");
+         
+         $currentUserGameProfile=$_SESSION['game_profile'];
+         
+         $gameResponse->currentSearchParty=$gameProgress->csp;
+         $artifactUtil=new ArtifactUtil;
+         $artifact=$gameProgress->csp->artifact;
+         if($artifactUtil->isArtifactActive($artifact) == 0){
+                 //artifact is in active
+            $gameResponse->isSomebodyGetArtifact=true;
+            return $gameResponse;
+         }
+         
+         $gameDao=new GameDAO;
+         $progress= $gameDao->getScoutProgress($gameProgress,$currentUserGameProfile);
+
+         $progress=(int)$progress;
+         $gameProgress->csp->progress +=$progress;
+         
+         if($progress == 0){
+             //dont update
+         }else{
+             //update and it will always happen as progress will b greater than zero
+             $currentSearchPartyUtil=new CurrentSearchPartyUtil;
+             $updatedSearchParty=$currentSearchPartyUtil->updateCurrentSearchPartyProgress($gameProgress->csp);
+             if($updatedSearchParty == null){
+                 //some body already get the artifact
+                $gameResponse->isSomebodyGetArtifact=true;
+                return $gameResponse;
+             }else{
+                 $gameResponse->isSomebodyGetArtifact=false;
+             }
+
+         }
+
+         $gameResponse->percentObjtained=$progress;
+         if($gameProgress->csp->progress >= 100 ){
+
+             $gameUtil=new GameUtil;
+             $gameUtilRes=$gameUtil->obtainArtifact($gameProgress->csp,$currentUserGameProfile);
+             $updatedGameProfile=$gameUtilRes[1];
+             $gameResponse->updatedGameProfile=$updatedGameProfile;
+             $gameResponse->artifact=$gameUtilRes[0];
+             $gameResponse->isActifactObtained=true;
+         }
+         return $gameResponse;
+    }
+
+
+    public function grantBuyProgress($gameProgress){
+        $gameResponse=new GameProgressResponse();
+        settype($gameProgress,"object");
+        settype($gameProgress,"object");
+        settype($gameProgress->friend,"object");
+        settype($gameProgress->csp,"object");
+        settype($gameProgress->csp->user,"object");
+        settype($gameProgress->csp->artifact,"object");
+        settype($gameProgress->progressType,"object");
+        settype($gameProgress->friend->user,"object");
+
+        $currentUserGameProfile=$_SESSION['game_profile'];
+
+        $gameResponse->currentSearchParty=$gameProgress->csp;
+         
+        $artifactUtil=new ArtifactUtil;
+        $artifact=$gameProgress->csp->artifact;
+        if($artifactUtil->isArtifactActive($artifact) == 0){
+                //artifact is inactive
+           $gameResponse->isSomebodyGetArtifact=true;
+           return $gameResponse;
+        }
+        $gameUtil=new GameUtil;
+
+        //checking weather the person have sufficient money to buy or not
+        if(!$gameUtil->validateBuy($currentUserGameProfile,$gameProgress)){
+            return null;
+        }
+
+        $gameDao=new GameDAO;
+        $progress= $gameDao->getBuyProgress($currentUserGameProfile,$gameProgress);
+        $progress=(int)$progress;
+        $gameProgress->csp->progress +=$progress;
+
+        if($progress == 0){
+            //dont update
+        }else{
+            //update and it will always happen as progress will b greater than zero
+            $currentSearchPartyUtil=new CurrentSearchPartyUtil;
+            $updatedSearchParty=$currentSearchPartyUtil->updateCurrentSearchPartyProgress($gameProgress->csp);
+            if($updatedSearchParty == null){
+                //some body already get the artifact
+               $gameResponse->isSomebodyGetArtifact=true;
+               return $gameResponse;
+            }else{
+                $gameResponse->isSomebodyGetArtifact=false;
+            }
+         }
+
+         $gameResponse->percentObjtained=$progress;
+         if($gameProgress->csp->progress >= 100 ){
+
+             $gameUtil=new GameUtil;
+             $gameUtilRes=$gameUtil->obtainArtifact($gameProgress->csp,$currentUserGameProfile);
+             $updatedGameProfile=$gameUtilRes[1];
+             $gameResponse->updatedGameProfile=$updatedGameProfile;
+             $gameResponse->artifact=$gameUtilRes[0];
+             $gameResponse->isActifactObtained=true;
+         }
+         return $gameResponse;
+
+    }
+
+    public function grantShareProgress($gameProgress){
+         $gameResponse=new GameProgressResponse();
+         settype($gameProgress,"object");
+         settype($gameProgress,"object");
+         settype($gameProgress->friend,"object");
+         settype($gameProgress->csp,"object");
+         settype($gameProgress->csp->user,"object");
+         settype($gameProgress->csp->artifact,"object");
+         settype($gameProgress->progressType,"object");
+         settype($gameProgress->friend->user,"object");
+
+         $currentUserGameProfile=$_SESSION['game_profile'];
+
+         $gameResponse->currentSearchParty=$gameProgress->csp;
+         $artifactUtil=new ArtifactUtil;
+         $artifact=$gameProgress->csp->artifact;
+         if($artifactUtil->isArtifactActive($artifact) == 0){
+                 //artifact is in active
+            $gameResponse->isSomebodyGetArtifact=true;
+            return $gameResponse;
+         }
+         $gameUtil=new GameUtil;
+
+        //checking weather the person have sufficient money to buy or not
+        if(!$gameUtil->validShare($currentUserGameProfile,$gameProgress)){
+             return null;
+         }
+        $gameDao=new GameDAO;
+        $progress= $gameDao->getShareProgress($currentUserGameProfile,$gameProgress);
+        $progress=(int)$progress;
+        $gameProgress->csp->progress +=$progress;
+        
+        if($progress == 0){
+            //dont update
+        }else{
+            //update and it will always happen as progress will b greater than zero
+            $currentSearchPartyUtil=new CurrentSearchPartyUtil;
+            $updatedSearchParty=$currentSearchPartyUtil->updateCurrentSearchPartyProgress($gameProgress->csp);
+            if($updatedSearchParty == null){
+                //some body already get the artifact
+               $gameResponse->isSomebodyGetArtifact=true;
+               return $gameResponse;
+            }else{
+                $gameResponse->isSomebodyGetArtifact=false;
+            }
+         }
+
+         $gameResponse->percentObjtained=$progress;
+         if($gameProgress->csp->progress >= 100 ){
+
+             $gameUtil=new GameUtil;
+             $gameUtilRes=$gameUtil->obtainArtifact($gameProgress->csp,$currentUserGameProfile);
+             $updatedGameProfile=$gameUtilRes[1];
+             $gameResponse->updatedGameProfile=$updatedGameProfile;
+             $gameResponse->artifact=$gameUtilRes[0];
+             $gameResponse->isActifactObtained=true;
+         }
+         return $gameResponse;
     }
 }
 ?>

@@ -13,7 +13,6 @@ class GameProgress {
     //put your code here
 
 
-    //The operation related to Game Progress will b very frequent so making this class as Lazy Load
     public $id;
     
     public $friend;

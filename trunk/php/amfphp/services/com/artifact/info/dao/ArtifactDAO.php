@@ -39,6 +39,17 @@ class ArtifactDAO {
         return;
     }
 
+    public function isArtifactActive($artifact){
+        $con = Connection::createConnection();
+        $artifact=mysql_query("Select isactive from artifactinfo where id = $artifact->id");
+        while($row = mysql_fetch_array($artifact)){
+            $isActive=$row['isactive'];
+        }
+        Connection::closeConnection($con);
+        return $isActive;
+
+    }
+
         
 }
 ?>
