@@ -60,5 +60,18 @@ class UserProfileDAO {
         return $gameProfile;
         
     }
+    //update gameprofile set spylvl=spylvl+1 where globallvl > spylvl+scoutlvl+buylvl + sharelvl AND userid =1
+    public function addSkill($columnName,$gameProfile){
+        $con = Connection::createConnection();
+        $user=$gameProfile->user;
+        $addPoints=mysql_query("update gameprofile set $columnName=$columnName+1 where globallvl > spylvl+scoutlvl+buylvl+sharelvl AND userid =$user->id");
+        if(mysql_affected_rows() < 1){
+            Connection::closeConnection($con);
+            return false;
+        }else{
+            
+            return true;
+        }
+    }
 }
 ?>

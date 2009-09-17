@@ -50,6 +50,18 @@ class ArtifactDAO {
 
     }
 
+    public function sellArtifact($inventory,$artifactPrice,$updatedGameProfile){
+        $con = Connection::createConnection();
+        $user=$updatedGameProfile->user;
+        $updateGameProfile=mysql_query("update gameprofile set gold = $updatedGameProfile->gold where userid = $user->id");
+        //delete from inventory
+        $deleteInventory=mysql_query("delete from inventory where id=$inventory->id AND userid=$user->id");
+        mysql_query("commit");
+        Connection::closeConnection($con);
+        return true;
+
+    }
+
         
 }
 ?>
