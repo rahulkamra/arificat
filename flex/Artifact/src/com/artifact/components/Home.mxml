@@ -9,7 +9,7 @@
 				<components:ProfileDetails width="100%" height="100%"/>
 			</mx:Canvas>
 			<mx:Panel height="67%" width="100%" id="cvsFriends" title="Friends" textAlign="center" >
-				<components:FriendsList width="100%" height="100%"  columnCount="4" dataProvider="{ArtifactUIController.friends}"/>
+				<components:FriendsList width="100%" height="100%"  columnCount="4" dataProvider="{ArtifactUIController.friends}" id="lstMainFrds"/>
 			</mx:Panel>
 		</mx:VBox>
 		

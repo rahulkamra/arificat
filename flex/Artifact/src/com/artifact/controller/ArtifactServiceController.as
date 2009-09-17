@@ -4,8 +4,10 @@ package com.artifact.controller
 	import com.artifact.servermodel.ArtifactInfo;
 	import com.artifact.servermodel.CompleteProfileWrapper;
 	import com.artifact.servermodel.CurrentSearchParty;
+	import com.artifact.servermodel.GameProfile;
 	import com.artifact.servermodel.GameProgress;
 	import com.artifact.servermodel.GameProgressResponse;
+	import com.artifact.servermodel.Inventory;
 	import com.artifact.servermodel.User;
 	
 	import mx.controls.Alert;
@@ -82,6 +84,7 @@ package com.artifact.controller
 		 **/
 		public function getAllArtifacts():void{
 			var ro:RemoteObject=new RemoteObject;
+			ro.showBusyCursor=true;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
 			ro.destination=ArtifactServiceConstants.GET_ARTIFACTS_SERVICE;
 			ro.source=ArtifactServiceConstants.GET_ARTIFACTS_SERVICE;
@@ -255,6 +258,10 @@ package com.artifact.controller
 		 }
 		 
 		 public function grantBuyProgressResultHandler(event:ResultEvent):void{
+		 	if(!event.result){
+		 		Alert.show('You dont have enough gold');
+		 		return;
+		 	}
 		 	grantScoutProgressResultHandler(event);	
 		 }
 		 
@@ -269,7 +276,10 @@ package com.artifact.controller
 		 }
 		 
 		  public function grantShareProgressResultHandler(event:ResultEvent):void{
-		  	Alert.show('k');
+		  	if(!event.result){
+		 		Alert.show('Minimum 10% is required for sharing');
+		 		return;
+		 	}
 		  	grantScoutProgressResultHandler(event);	
 		 }	
 		 
@@ -281,7 +291,7 @@ package com.artifact.controller
 		 public function genericProgressResultHandler(event:ResultEvent):Boolean{
 		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
 		 	if(gameProgressResponse.isSomebodyGetArtifact){
-		 		Alert.show('Somevody already got the artifact');
+		 		Alert.show('Somebody already got the artifact');
 		 		gameProgressResponse.currentSearchParty.artifact.isActive=false;
 		 		//disable the item. assuming the item is cming as disabled	
 		 		Artifact.artifactUIController.updateCurrentSearchParty(gameProgressResponse.currentSearchParty);
@@ -315,6 +325,48 @@ package com.artifact.controller
 		 		ArtifactUIController.currentSearch.btnBack.visible=false;
 		 		
 		 	}
+		 }
+		 
+		 /**
+		 * 
+		 * 
+		 **/
+		 public function addSkill(type:String):void{
+		 	var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GET_PROFILE;
+			ro.source=ArtifactServiceConstants.GET_PROFILE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,addSkillResultHandler);
+			ro.addSkill(type);	
+		 }
+		 
+		 public function addSkillResultHandler(event:ResultEvent):void{
+		 	if(!event.result){
+		 		Alert.show('You dont have enough skill points left');
+		 		return;
+		 	}
+		 	var updatedGameProfile:GameProfile=event.result as GameProfile;
+		 	ArtifactUIController.gameProfile=updatedGameProfile;	
+		 }
+		 
+		 public function sellArtifact(artifactPrice:int,inventoryItem:Inventory):void{
+			var ro:RemoteObject=new RemoteObject;
+			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
+			ro.destination=ArtifactServiceConstants.GET_ARTIFACTS_SERVICE;
+			ro.source=ArtifactServiceConstants.GET_ARTIFACTS_SERVICE;
+			ro.addEventListener(FaultEvent.FAULT,myFaultHandler);
+			ro.addEventListener(ResultEvent.RESULT,sellArtifactResultHandler);
+			ro.showBusyCursor=true;
+			Artifact.artifactUIController.removeItemFromInventoryUI(inventoryItem);
+			ro.sellArtifact(artifactPrice,inventoryItem);
+				
+		 }
+		 
+		 public function sellArtifactResultHandler(event:ResultEvent):void{
+		 	var updatedGameProfile:GameProfile=event.result as GameProfile;
+		 	ArtifactUIController.gameProfile=updatedGameProfile;
+		 	
 		 }
 		 
 

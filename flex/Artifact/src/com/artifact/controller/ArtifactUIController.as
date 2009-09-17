@@ -5,10 +5,12 @@ package com.artifact.controller
 	import com.artifact.servermodel.CurrentSearchParty;
 	import com.artifact.servermodel.GameProfile;
 	import com.artifact.servermodel.GameProgress;
+	import com.artifact.servermodel.Inventory;
 	import com.artifact.servermodel.User;
 	import com.artifact.servermodel.UserProfile;
 	
 	import mx.controls.Alert;
+	import mx.utils.ObjectUtil;
 	
 	public class ArtifactUIController
 	{
@@ -63,6 +65,13 @@ package com.artifact.controller
 			Artifact.artifactServiceController.grantShareProgress(gameProgress);
 		}
 		
+		public function addSkill(type:String):void{
+			Artifact.artifactServiceController.addSkill(type);
+		}
+		
+		public function sellArtifact(artifactPrice:int,inventoryItem:Inventory):void{
+			Artifact.artifactServiceController.sellArtifact(artifactPrice,inventoryItem);
+		}
 		
 		
 		
@@ -109,6 +118,18 @@ package com.artifact.controller
 					Alert.show('updated     '+ count)
 				}
 			}
+		}
+		
+		public function removeItemFromInventoryUI(inventory:Inventory):void{
+			var newInventory:Array=new Array
+			for(var count:int = 0 ; count<myArtifacts.length ; count++){
+				var eachItem:Inventory=myArtifacts[count] as Inventory;
+				if(eachItem.id == inventory.id){
+				}else{
+					newInventory.push(myArtifacts[count]);					
+				}	
+			}
+			myArtifacts=newInventory;
 		}
 		
 		

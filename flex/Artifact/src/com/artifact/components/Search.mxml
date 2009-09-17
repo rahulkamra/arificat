@@ -258,5 +258,5 @@
 	</mx:Script>
 	<mx:Image x="46.5" y="26" source="@Embed(source='com/artifact/resources/images/arrow.png')"/>
 	<mx:Label x="118" y="37" text="Searching" color="#293959" fontSize="27" fontFamily="Georgia" fontStyle="italic"/>
-	<mx:Button y="39" right="49" styleName="close" click="closeMe()"/>
+	<mx:Button right="49" styleName="close" click="closeMe()" top="39"/>
 </mx:Canvas>
