@@ -31,5 +31,20 @@ class ArtifactService {
         $artifactList=$artifactDAO->getArtifacts($user);
         return $artifactList;
     }
+
+    public function sellArtifact($artifactPrice,$inventoryItem){
+        //add gold to the gameprofile
+        //remove item from inventory
+        settype($inventoryItem,"object");
+        settype($inventoryItem->user,"object");
+        settype($inventoryItem->artifact,"object");
+
+        $currentUserGameProfile=$_SESSION['game_profile'];
+        $currentUserGameProfile->gold=$currentUserGameProfile->gold+$artifactPrice;
+        
+        $artifactDAO=new ArtifactDAO();
+        $artifactDAO->sellArtifact($inventoryItem, $artifactPrice, $currentUserGameProfile);
+        return $currentUserGameProfile;
+    }
 }
 ?>

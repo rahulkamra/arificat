@@ -29,6 +29,7 @@ include_once("../../inventory/dao/InventoryDAO.php");
 include_once("../../inventory/model/Inventory.php");
 include_once("../../inventory/util/InventoryUtil.php");
 
+include_once("../../util/properties/ServerConstants.php");
 include_once("../../info/model/ArtifactInfo.php");
 include_once("..//model/CompleteProfileWrapper.php");
 include_once("../../util/dbconnection/Connection.php");
@@ -42,6 +43,10 @@ class ProfileService {
         "getProfile" => array(
             "description" => "No description given.",
             "arguments" => array(),
+            "access" => "remote"
+            ),
+           "addSkill" => array(
+            "description" => "No description given.",
             "access" => "remote"
             )
         );
@@ -77,6 +82,37 @@ class ProfileService {
         $completeProfileWrapper->myArtifacts=$myInventory;
 
         return $completeProfileWrapper;
+    }
+
+    public function addSkill($type){
+        $userProfileDao=new UserProfileDAO;
+        $gameProfile=$_SESSION['game_profile'];
+        
+        if($type == ServerConstants::SPY){
+            $columnName="spylvl";
+        }else if($type == ServerConstants::SCOUT){
+            $columnName="scoutlvl";
+        }else if($type == ServerConstants::BUY){
+            $columnName="buylvl";
+        }else if($type == ServerConstants::SHARE){
+            $columnName="sharelvl";
+        }
+        
+        if($userProfileDao->addSkill($columnName, $gameProfile)){
+            if($type == ServerConstants::SPY){
+                $gameProfile->spyLvl=$gameProfile->spyLvl+1;
+            }else if($type == ServerConstants::SCOUT){
+                $gameProfile->scoutLvl=$gameProfile->scoutLvl+1;
+            }else if($type == ServerConstants::BUY){
+                $gameProfile->buyLvl=$gameProfile->buyLvl+1;
+            }else if($type == ServerConstants::SHARE){
+                $gameProfile->shareLvl=$gameProfile->shareLvl+1;
+            }
+            $_SESSION['game_profile']=$gameProfile;
+            return $gameProfile;
+        }else{
+            return null;
+        }
     }
 }
 ?>
