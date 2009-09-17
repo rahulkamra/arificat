@@ -3,6 +3,7 @@
 	<mx:Button y="356" label="Close" horizontalCenter="0" click="closeMe()"/>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.constants.ArtifactConstants;
 			import com.artifact.controller.ArtifactUIController;
 			import mx.managers.PopUpManager;
 			public function closeMe():void{
@@ -28,20 +29,28 @@
 	<mx:Label x="530" y="171" text="{ArtifactUIController.gameProfile.buyLvl}" fontSize="28" id="lblBuyLvl"/>
 	<mx:Label x="530" y="275" text="{ArtifactUIController.gameProfile.shareLvl}" fontSize="28" id="lblShareLvl"/>
 	
-	<mx:Image x="246" y="144" height="101" styleName="loginApp" width="33" source="com/artifact/resources/images/pl-bor.png" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}">
+	<mx:Image x="246" y="144" height="101" styleName="loginApp" width="33" source="@Embed(source='com/artifact/resources/images/pl-bor.png')" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.SPY)" buttonMode="true">
 		
 	</mx:Image>
-	<mx:Image x="246" y="248" height="101" styleName="loginApp" width="33" source="com/artifact/resources/images/pl-bor.png" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}">
+	<mx:Image x="246" y="248" height="101" styleName="loginApp" width="33" source="@Embed(source='com/artifact/resources/images/pl-bor.png')" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.SCOUT)" buttonMode="true">
 		
 	</mx:Image>
-	<mx:Image x="610" y="142" height="101" styleName="loginApp" width="33" source="com/artifact/resources/images/pl-bor.png" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}">
+	<mx:Image x="610" y="142" height="101" styleName="loginApp" width="33" source="@Embed(source='com/artifact/resources/images/pl-bor.png')" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.BUY)" buttonMode="true">
 		
 	</mx:Image>
-	<mx:Image x="610" y="248" height="101" styleName="loginApp" width="33" source="com/artifact/resources/images/pl-bor.png" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}">
+	<mx:Image x="610" y="248" height="101" styleName="loginApp" width="33" source="@Embed(source='com/artifact/resources/images/pl-bor.png')" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.SHARE)" buttonMode="true">
 		
 	</mx:Image>
-	<mx:Label x="250" y="172" text="+" id="lblPlusSpy" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}"/>
-	<mx:Label x="250" y="271" text="+" id="lblPlusScout" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}"/>
-	<mx:Label x="614" y="168" text="+" id="lblPlusBuy" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}"/>
-	<mx:Label x="614" y="271" text="+" id="lblPlusShare" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}"/>
+	<mx:LinkButton x="244" y="172" label="+" alpha="0" id="lblPlusSpy" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.SPY)"  fontWeight="normal"/>
+	<mx:LinkButton x="242" y="271" label="+" alpha="0" id="lblPlusScout" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.SCOUT)" fontWeight="normal"/>
+	<mx:LinkButton x="607" y="168" label="+" alpha="0" id="lblPlusBuy" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.BUY)" fontWeight="normal"/>
+	<mx:LinkButton x="607" y="271" label="+" alpha="0" id="lblPlusShare" fontSize="28" visible="{ArtifactUIController.gameProfile.experiencePointsAvailable == 0?false:true}" click="addSkill(ArtifactConstants.SHARE)" fontWeight="normal"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			public function addSkill(type:String):void{
+				Artifact.artifactUIController.addSkill(type);	
+			}
+		]]>
+	</mx:Script>
 </mx:Canvas>
