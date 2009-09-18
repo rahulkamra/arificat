@@ -28,6 +28,7 @@ package com.artifact.controller
 		}
 		/**
 		 * Authentication
+		 * This function check the username from the services 
 		 **/
 		public function authenticate(username:String):void{
 			var ro:RemoteObject=new RemoteObject;
@@ -40,7 +41,10 @@ package com.artifact.controller
 			trace(username)
 			ro.doLogin(username);	
 		}
-		
+		/**
+		 * This is the result handler of the authentication remote call 
+		 * and allow user to go to the home page if the username is correct
+		 **/
 		public function authenticateResultHandler(event:ResultEvent):void{
 			var user:User=event.result as User;
 			if(user){
@@ -52,6 +56,8 @@ package com.artifact.controller
 		}
 		/**
 		 * Get Profile
+		 * This function is called after the authentication is done so that user profile can 
+		 * be obtained  from the services 
 		 * 
 		 **/
 		 public function getProfile():void{
@@ -65,6 +71,11 @@ package com.artifact.controller
 			ro.getProfile();
 		 }
 		 
+		 /**
+		 * 
+		 * This is the result handler of the get profile method and object of CompleteProfileWrapper
+		 * class is obtained
+		 **/
 		 public function getProfileResultHandler(event:ResultEvent):void{
 		 	var completeProfile:CompleteProfileWrapper=event.result as CompleteProfileWrapper;
 		 	ArtifactUIController.gameProfile=completeProfile.gameProfile;
@@ -80,6 +91,7 @@ package com.artifact.controller
 		/**
 		 * 
 		 * Get All Artifacts 
+		 * This method gets all the active artifacts from the server 
 		 * 
 		 **/
 		public function getAllArtifacts():void{
@@ -92,7 +104,10 @@ package com.artifact.controller
 			ro.addEventListener(ResultEvent.RESULT,getAllArtifactsResultHandler);
 			ro.getActiveArtifacts();	
 		}
-		
+		/**
+		 * 
+		 * This is the result handler of the getAllArtifacts
+		 **/
 		public function getAllArtifactsResultHandler(event:ResultEvent):void{
 			var resultArray:Array=event.result as Array;
 			Application.application.home.newSearchPartyPopUp.lstMain.dataProvider=resultArray;
@@ -102,6 +117,7 @@ package com.artifact.controller
 		
 		/**
 		 * Start a new search party
+		 * This methid start a new search party by calling the services
 		 * 
 		 **/
 		 
@@ -115,6 +131,10 @@ package com.artifact.controller
 			ro.startSearchParty(artifact);	
 		 }
 		 
+		 /**
+		 * 
+		 * This is the result handler of startNewSearchParty
+		 **/
 		 public function startNewSearchPartyResultHandler(event:ResultEvent):void{
 		 	var result:CurrentSearchParty=event.result as CurrentSearchParty;
 		 	//add current search party into ui :)
@@ -134,6 +154,7 @@ package com.artifact.controller
 		 /**
 		 * 
 		 * Get Spy Questions
+		 * This method get the spy questions from the services
 		 * 
 		 **/
 		 
@@ -147,7 +168,9 @@ package com.artifact.controller
 			ro.getSpyQuestions(gameProgress);	
 		 }
 		 
-		 
+		 /**
+		 * This is the result handler of getSpyQuestions
+		 **/
 		 public function getSpyQuestionsResultHandler(event:ResultEvent):void{
 		 	if(event.result == null){
 		 		Alert.show('You cannot spy the same person twice')
@@ -159,8 +182,8 @@ package com.artifact.controller
 		 }
 		 
 		 /**
-		 * 
-		 * 
+		 * Grant Spy Progress
+		 * This method grant spy progress to the used based on the correct answers
 		 * 
 		 **/
 		 
@@ -173,7 +196,10 @@ package com.artifact.controller
 			ro.addEventListener(ResultEvent.RESULT,grantSpyProgressResultHandler);
 			ro.grantSpyProgress(answers,gameProgress);	
 		 }
-		 
+		 /**
+		 * This is the result handler of grantSpyProgress
+		 *
+		 */
 		 public function grantSpyProgressResultHandler(event:ResultEvent):void{
 		 	if(event.result == null){
 		 		Alert.show('You cannot spy the same person twice')
@@ -207,7 +233,8 @@ package com.artifact.controller
 		 	trace('end');
 		 }
 		 /**
-		 * 
+		 * Grant Scout Progress
+		 * This method gives user the scout progress
 		 * 
 		 **/
 		 
@@ -221,6 +248,9 @@ package com.artifact.controller
 			ro.grantScoutProgress(gameProgress);	
 		 } 
 		 
+		 /**
+		 * This is the result handler of grantScoutProgress
+		 **/
 		 public function grantScoutProgressResultHandler(event:ResultEvent):void{
 		 	var gameProgressResponse:GameProgressResponse=event.result as GameProgressResponse;
 		 	trace(gameProgressResponse);
@@ -247,6 +277,10 @@ package com.artifact.controller
 		 }
 		 
 		 
+		 /**
+		 * 
+		 * 
+		 **/
 		 public function grantBuyProgress(gameProgress:GameProgress):void{
 		 	var ro:RemoteObject=new RemoteObject;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
