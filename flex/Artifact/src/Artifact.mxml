@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" styleName="loginApp" xmlns:components="com.artifact.components.*">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" styleName="loginApp" xmlns:components="com.artifact.components.*" creationComplete="creationComplete()">
 	<mx:states>
 		<mx:State name="loggedin">
 			<mx:RemoveChild target="{textinput1}"/>
@@ -17,6 +17,12 @@
 	</mx:states>
 	<mx:Script>
 		<![CDATA[
+			import com.artifact.constants.ArtifactServiceConstants;
+			import com.artifact.constants.ArtifactConstants;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.mxml.HTTPService;
 			import com.artifact.controller.ArtifactServiceController;
 			import com.artifact.controller.ArtifactUIController;
 			public const topPadding:int=50;
@@ -29,6 +35,23 @@
 				Artifact.artifactUIController.checkUsername(textinput1.text);
 				
 			}
+			
+			public function creationComplete():void{
+				var httpServ:HTTPService=new HTTPService;
+				httpServ.url="server.txt";
+				httpServ.method="get";
+				httpServ.send();
+				httpServ.addEventListener(ResultEvent.RESULT,function resultEvent(event:ResultEvent):void{
+					ArtifactServiceConstants.SERVER_URL=event.result as String
+				});
+				httpServ.addEventListener(FaultEvent.FAULT,function faultEvent(event:FaultEvent):void{
+					Alert.show('unable to load the settings');
+					Alert.show(event.fault.toString())
+					
+				});
+				
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:Style source="com/artifact/resources/css/artifact.css"/>

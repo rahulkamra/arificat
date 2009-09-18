@@ -224,23 +224,25 @@
 			public function goToBuyReport():void{
 				//experienceGained=66;
 				//currentState='report';
-				var gameProgress:GameProgress=new GameProgress;
-				var friend:UserProfile=tileListFriends.dataProvider[tileListFriends.selectedIndex] as UserProfile;
-				gameProgress.csp=_data;
-				gameProgress.friend = friend;
-				
-				Artifact.artifactUIController.grantBuyProgress(gameProgress);
+				if(tileListFriends.selectedItem){
+					var gameProgress:GameProgress=new GameProgress;
+					var friend:UserProfile=tileListFriends.dataProvider[tileListFriends.selectedIndex] as UserProfile;
+					gameProgress.csp=_data;
+					gameProgress.friend = friend;
+					
+					Artifact.artifactUIController.grantBuyProgress(gameProgress);
+				}
 			}
 			
 			public function goToShareReport():void{
-				//experienceGained=61;
-				//currentState='report';]
-				var gameProgress:GameProgress=new GameProgress;
-				var friend:UserProfile=tileListFriends.dataProvider[tileListFriends.selectedIndex] as UserProfile;
-				gameProgress.csp=_data;
-				gameProgress.friend = friend;
-				
-				Artifact.artifactUIController.grantShareProgress(gameProgress);
+				if(tileListFriends.selectedItem){
+					var gameProgress:GameProgress=new GameProgress;
+					var friend:UserProfile=tileListFriends.dataProvider[tileListFriends.selectedIndex] as UserProfile;
+					gameProgress.csp=_data;
+					gameProgress.friend = friend;
+					
+					Artifact.artifactUIController.grantShareProgress(gameProgress);
+				}
 			}
 			
 			public function goBack():void{

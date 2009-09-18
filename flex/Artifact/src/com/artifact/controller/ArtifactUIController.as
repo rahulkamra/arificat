@@ -115,7 +115,6 @@ package com.artifact.controller
 				var eachItem:CurrentSearchParty=currentSearchParties[count]  as CurrentSearchParty;
 				if(eachItem.id == updatedCurrentSearchParty.id){
 					currentSearchParties[count] = updatedCurrentSearchParty;
-					Alert.show('updated     '+ count)
 				}
 			}
 		}
