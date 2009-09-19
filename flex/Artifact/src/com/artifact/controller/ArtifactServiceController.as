@@ -18,6 +18,10 @@ package com.artifact.controller
 	import mx.rpc.remoting.mxml.RemoteObject;
 	import mx.utils.ObjectUtil;
 	
+	/**
+	 *This class take care of the server interation all the services call is diverted from this class 
+	 * 
+	 */
 	public class ArtifactServiceController
 	{
 		public function ArtifactServiceController()
@@ -278,7 +282,8 @@ package com.artifact.controller
 		 
 		 
 		 /**
-		 * 
+		 * Grant Buy Progress
+		 * This method gives user the buy progress
 		 * 
 		 **/
 		 public function grantBuyProgress(gameProgress:GameProgress):void{
@@ -291,6 +296,11 @@ package com.artifact.controller
 			ro.grantBuyProgress(gameProgress);	
 		 }
 		 
+		  
+		 /**
+		 * This is the result handler of grantBuyProgress
+		 **/
+		 
 		 public function grantBuyProgressResultHandler(event:ResultEvent):void{
 		 	if(!event.result){
 		 		Alert.show('You dont have enough gold');
@@ -299,6 +309,11 @@ package com.artifact.controller
 		 	grantScoutProgressResultHandler(event);	
 		 }
 		 
+		  /**
+		 * Grant Share Progress
+		 * This method gives user the share progress
+		 * 
+		 **/
 		 public function grantShareProgress(gameProgress:GameProgress):void{
 		 	var ro:RemoteObject=new RemoteObject;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
@@ -309,6 +324,9 @@ package com.artifact.controller
 			ro.grantShareProgress(gameProgress);	
 		 }
 		 
+		 /**
+		 * This is the result handler of grantShareProgress
+		 **/
 		  public function grantShareProgressResultHandler(event:ResultEvent):void{
 		  	if(!event.result){
 		 		Alert.show('Minimum 10% is required for sharing');
@@ -362,7 +380,7 @@ package com.artifact.controller
 		 }
 		 
 		 /**
-		 * 
+		 * This method add skill points 
 		 * 
 		 **/
 		 public function addSkill(type:String):void{
@@ -375,6 +393,10 @@ package com.artifact.controller
 			ro.addSkill(type);	
 		 }
 		 
+		 /**
+		 * This is the result handler of addSkill
+		 * 
+		 **/
 		 public function addSkillResultHandler(event:ResultEvent):void{
 		 	if(!event.result){
 		 		Alert.show('You dont have enough skill points left');
@@ -384,6 +406,10 @@ package com.artifact.controller
 		 	ArtifactUIController.gameProfile=updatedGameProfile;	
 		 }
 		 
+		 /**
+		 * This method sell the artifact from the inventory
+		 * 
+		 **/
 		 public function sellArtifact(artifactPrice:int,inventoryItem:Inventory):void{
 			var ro:RemoteObject=new RemoteObject;
 			ro.endpoint=ArtifactServiceConstants.SERVER_URL;
@@ -397,6 +423,9 @@ package com.artifact.controller
 				
 		 }
 		 
+		 /**
+		 * This method is the result handler of sellArtifact
+		 **/
 		 public function sellArtifactResultHandler(event:ResultEvent):void{
 		 	var updatedGameProfile:GameProfile=event.result as GameProfile;
 		 	ArtifactUIController.gameProfile=updatedGameProfile;
