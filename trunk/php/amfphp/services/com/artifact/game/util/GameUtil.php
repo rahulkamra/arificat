@@ -12,11 +12,20 @@
 class GameUtil {
     //put your code here
 
+    /**
+     *
+     * @param <User> $user
+     * @return <GameProfile>
+     */
     public function getGameProfile(User $user){
         $gameDAO=new GameDAO();
         return $gameDAO->getGameProfile($user);
     }
 
+    /**
+     *
+     * @return <int>
+     */
     public function giveRandomNumbers(){
         $questionIndex= array();
         for($count = 0 ;$count < 5 ; $count ++){
@@ -33,6 +42,10 @@ class GameUtil {
         return $questionIndex;
     }
 
+    /**
+     *
+     * @return <int>
+     */
     public function giveUniqueRandomOptions(){
             $optionIndex= array();
             for($count = 0 ;$count < 3 ; $count ++){
@@ -49,6 +62,12 @@ class GameUtil {
             return $optionIndex;
     }
 
+    /**
+     *
+     * @param <CurrentSearchParty> $currentSearchParty
+     * @param <GameProfile> $gameProfile
+     * @return <Array>
+     */
     public function obtainArtifact($currentSearchParty,$gameProfile){
 
              //add to inventory
@@ -94,6 +113,12 @@ class GameUtil {
     }
 
 
+    /**
+     *
+     * @param <GameProfile> $currentUserGameProfile
+     * @param <GameProgress> $gameProgress
+     * @return <Boolean>
+     */
      public function validateBuy($currentUserGameProfile,$gameProgress){
         $price_of_info=$gameProgress->csp->artifactLvl*rand(0, 1000);
         if($currentUserGameProfile->gold >= $price_of_info){
@@ -103,6 +128,12 @@ class GameUtil {
         }
     }
 
+    /**
+     *
+     * @param <GameProfile> $currentUserGameProfile
+     * @param <GameProgress> $gameProgress
+     * @return <Boolean>
+     */
     public function validShare($currentUserGameProfile,$gameProgress){
         $currentProgress=$gameProgress->csp->progress;
         if($currentProgress >= 10 ){

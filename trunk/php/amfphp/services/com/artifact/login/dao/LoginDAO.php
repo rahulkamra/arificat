@@ -11,7 +11,12 @@
  */
 class LoginDAO {
     //put your code here
-
+    /**
+     *
+     * @param <User> $username
+     * @return <User>
+     * @SQL Select * From user Where username = 1
+     */
     public function isUsernameAvailable($username){
         $con = Connection::createConnection();
         $result = mysql_query("Select * From user Where username = '$username'");

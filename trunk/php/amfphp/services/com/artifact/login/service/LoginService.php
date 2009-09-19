@@ -26,7 +26,12 @@ class LoginService {
             )
         );
     }
-    
+
+    /**
+     *
+     * @param <String> $username
+     * @return <User>
+     */
     public function doLogin($username){
         $logindao = new LoginDAO();
         $user=$logindao->isUsernameAvailable($username);

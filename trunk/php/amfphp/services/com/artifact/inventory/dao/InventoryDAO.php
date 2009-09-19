@@ -12,8 +12,13 @@
 class InventoryDAO {
     //put your code here
 
-    //For now getting every thing will change the logic later
-    //SELECT inventory.id AS inventory_id, inventory.artifactlevel AS inventory_artifactlevel, inventory.artifactid AS inventory_artifactid, inventory.userid AS inventory_userid, user.id AS user_id, user.username AS user_username, artifact.* FROM inventory, user, artifactinfo AS artifact WHERE inventory.userid = user.id AND inventory.artifactid = artifact.id AND inventory.userid =1
+    //
+    /**
+     *
+     * @param <User> $user
+     * @return <Array>
+     * @SQl SELECT inventory.id AS inventory_id, inventory.artifactlevel AS inventory_artifactlevel, inventory.artifactid AS inventory_artifactid, inventory.userid AS inventory_userid, user.id AS user_id, user.username AS user_username, artifact.* FROM inventory, user, artifactinfo AS artifact WHERE inventory.userid = user.id AND inventory.artifactid = artifact.id AND inventory.userid =1
+     */
     public function getInventory(User $user){
         $con = Connection::createConnection();
         $result = mysql_query("SELECT inventory.id AS inventory_id, inventory.artifactlevel AS inventory_artifactlevel, inventory.artifactid AS inventory_artifactid, inventory.userid AS inventory_userid, user.id AS user_id, user.username AS user_username, artifact.* FROM inventory, user, artifactinfo AS artifact WHERE inventory.userid = user.id AND inventory.artifactid = artifact.id AND inventory.userid =$user->id");
@@ -43,6 +48,12 @@ class InventoryDAO {
         return $myinventory;
     }
 
+    /**
+     *
+     * @param <Inventory> $inventory
+     * @return <Inventory>
+     * @SQL Insert into inventory values (NULL,1,1,1)
+     */
     public function addToInventory($inventory){
         $con = Connection::createConnection();
         $artifact=$inventory->artifact;

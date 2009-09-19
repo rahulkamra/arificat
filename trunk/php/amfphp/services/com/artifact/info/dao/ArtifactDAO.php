@@ -12,7 +12,13 @@
 class ArtifactDAO {
     //put your code here
 
-    //SELECT * FROM artifactinfo where id not in (select id from currentsearchparty where userid = 2)
+    //
+    /**
+     *
+     * @param <User> $user
+     * @return <Array>
+     * @SQL SELECT * FROM artifactinfo where id not in (select id from currentsearchparty where userid = 2)
+     */
     public function getArtifacts(User $user){
         $con = Connection::createConnection();
         $result = mysql_query("SELECT * FROM artifactinfo where id not in (select artifactid from currentsearchparty where userid = $user->id) AND isactive = 1");
@@ -31,6 +37,12 @@ class ArtifactDAO {
         return $artifactList;
     }
 
+    /**
+     *
+     * @param <ArtifactInfo> $artifact
+     * @return <null>
+     * @SQL update artifactinfo set isactive = 0 where id = 1
+     */
     public function makeArtifactInactive($artifact){
         $con = Connection::createConnection();
         $acrifactInactive=mysql_query("update artifactinfo set isactive = 0 where id = $artifact->id");
@@ -39,6 +51,12 @@ class ArtifactDAO {
         return;
     }
 
+    /**
+     *
+     * @param <Artifact> $artifact
+     * @return <Boolean>
+     * @SQL Select isactive from artifactinfo where id = 1
+     */
     public function isArtifactActive($artifact){
         $con = Connection::createConnection();
         $artifact=mysql_query("Select isactive from artifactinfo where id = $artifact->id");
@@ -50,6 +68,16 @@ class ArtifactDAO {
 
     }
 
+    /**
+     *
+     * @param <Inventory> $inventory
+     * @param <int> $artifactPrice
+     * @param <GameProfile> $updatedGameProfile
+     * @return <Boolean>
+     * @SQL update gameprofile set gold = 100 where userid = 1
+     * @SQL delete from inventory where id=1 AND userid=1
+     *
+     */
     public function sellArtifact($inventory,$artifactPrice,$updatedGameProfile){
         $con = Connection::createConnection();
         $user=$updatedGameProfile->user;

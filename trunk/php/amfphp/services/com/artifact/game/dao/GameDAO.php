@@ -11,6 +11,12 @@
  */
 class GameDAO {
     //put your code here
+    /**
+     *
+     * @param <User> $user
+     * @return <GameProfile>
+     * 
+     */
     public function getGameProfile(User $user){
         $con = Connection::createConnection();
         $result = mysql_query("Select * From gameprofile Where userid=$user->id");

@@ -11,7 +11,11 @@
  */
 class ServerConstants {
     //put your code here
+    
      //Value should be same as the values in the progresstype table
+     /**
+      * Server constants
+      */
      const SPY="Spy";
      const SCOUT="Scout";
      const BUY="Buy";

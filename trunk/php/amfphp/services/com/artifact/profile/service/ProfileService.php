@@ -52,6 +52,10 @@ class ProfileService {
         );
     }
 
+    /**
+     *
+     * @return <CompleteProfileWrapper>
+     */
     public function getProfile(){
         $user=$_SESSION['loggedin_user'];
         $completeProfileWrapper=new CompleteProfileWrapper();
@@ -84,6 +88,11 @@ class ProfileService {
         return $completeProfileWrapper;
     }
 
+    /**
+     *
+     * @param <String> $type
+     * @return <GameProfile>
+     */
     public function addSkill($type){
         $userProfileDao=new UserProfileDAO;
         $gameProfile=$_SESSION['game_profile'];
