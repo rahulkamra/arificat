@@ -12,12 +12,22 @@
 class ArtifactUtil {
     //put your code here
 
+    /**
+     *
+     * @param <Artifact> $artifact
+     * @return <null>
+     */
     public function makeArtifactInactive($artifact){
         $artifactDAO=new ArtifactDAO();
         $artifactDAO->makeArtifactInactive($artifact);
         return;
     }
 
+    /**
+     *
+     * @param <Artifact> $artifact
+     * @return <Boolean>
+     */
     public function isArtifactActive($artifact){
         $artifactDAO=new ArtifactDAO();
         return $artifactDAO->isArtifactActive($artifact);

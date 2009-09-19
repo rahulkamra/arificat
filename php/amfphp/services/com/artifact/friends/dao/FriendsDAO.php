@@ -11,9 +11,12 @@
  */
 class FriendsDAO {
     //put your code here
-
-    //For this function i am just returning all the rows of user except the current logged in user
-    //SELECT u1.id as "user_id", u1.username as "user_name", u2.* FROM user u1, userprofile u2 where u1.id = u2.id AND u1.id != 1
+    /*
+     *
+     * @SQL =SELECT u1.id as "user_id", u1.username as "user_name", u2.* FROM user u1, userprofile u2 where u1.id = u2.id AND u1.id != 1
+     * For this function i am just returning all the rows of user except the current logged in user
+     *
+     */
     public function getAllFriends(User $user){
         $con = Connection::createConnection();
         $result = mysql_query("SELECT u1.id as user_id, u1.username as user_name, u2.* FROM user u1, userprofile u2 where u1.id = u2.id AND u1.id != $user->id");

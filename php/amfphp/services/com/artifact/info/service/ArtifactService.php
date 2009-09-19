@@ -25,6 +25,10 @@ class ArtifactService {
         );
     }
 
+    /**
+     *
+     * @return <Array>
+     */
     public function getActiveArtifacts(){
         $user=$_SESSION['loggedin_user'];
         $artifactDAO=new ArtifactDAO();
@@ -32,6 +36,12 @@ class ArtifactService {
         return $artifactList;
     }
 
+    /**
+     *
+     * @param <int> $artifactPrice
+     * @param <inventory> $inventoryItem
+     * @return <GameProfile>
+     */
     public function sellArtifact($artifactPrice,$inventoryItem){
         //add gold to the gameprofile
         //remove item from inventory

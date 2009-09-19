@@ -31,6 +31,11 @@ class SearchPartyService {
 
     //For using service browser
     //{_explicitType:'com.artifact.info.model.ArtifactInfo',id:'1',name:'Divine',desc:'A new desc','isActive:'1''}
+    /**
+     *
+     * @param <ArtifactInfo> $artifactObj
+     * @return <CurrentSearchParty>
+     */
     public function startSearchParty($artifactObj){
        settype($artifactObj,"object");
        $user=$_SESSION['loggedin_user'];

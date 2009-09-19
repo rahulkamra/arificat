@@ -12,7 +12,12 @@
 class CurrentSearchPartyDAO {
     //put your code here
 
-
+    /**
+     *
+     * @param <CurrentSearchParty> $currentSearchParty
+     * @return <CurrentSearchParty>
+     * @SQL select * from currentsearchparty where userid = 1 AND artifactid = 1
+     */
     public function addNewSearchParty(CurrentSearchParty $currentSearchParty){
         $con = Connection::createConnection();
         $user=$currentSearchParty->user;
@@ -38,9 +43,9 @@ class CurrentSearchPartyDAO {
 
     /**
      *
-     *
-     *
-     **/
+     * @param <User> $user
+     * @return <Array>
+     */
     public function getCurrentSearchParty(User $user){
         $con = Connection::createConnection();
         $result=mysql_query("select currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact where currentsearchparty.userid = $user->id AND currentsearchparty.artifactid=artifact.id AND artifact.isactive = 1");
@@ -64,8 +69,14 @@ class CurrentSearchPartyDAO {
     }
 
 
-    /* Again assuming everybody is a frd of everybody */
-    //select user.id as user_id,user.username as user_name,currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact,user  where currentsearchparty.userid in (select user.id from user where user.id != 1 ) AND currentsearchparty.artifactid=artifact.id AND user.id=currentsearchparty.userid
+    /**
+     *
+     * @param <type> $user
+     * @return <type>
+     * @SQL select user.id as user_id,user.username as user_name,currentsearchparty.*,artifact.id as artifact_id,artifact.name as name,artifact.desc as 'desc',artifact.isactive as isactive from currentsearchparty,artifactinfo as artifact,user  where currentsearchparty.userid in (select user.id from user where user.id != 1 ) AND currentsearchparty.artifactid=artifact.id AND user.id=currentsearchparty.userid
+     *
+     * Again assuming everybody is a frd of everybody
+     */
     
     public function getFriendSearchParty(User $user){
         $con = Connection::createConnection();
@@ -98,7 +109,12 @@ class CurrentSearchPartyDAO {
 
     }
 
-    //update  currentsearchparty,artifactinfo  set progress = 10 where currentsearchparty.id = 1 AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1
+    /**
+     *
+     * @param <CurrentSearchParty> $currentSearchParty
+     * @return <CurrentSearchParty>
+     * @SQL update  currentsearchparty,artifactinfo  set progress = 10 where currentsearchparty.id = 1 AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1
+     */
     public function updateCurrentSearchPartyProgress($currentSearchParty){
         $con = Connection::createConnection();
         $result=mysql_query("update  currentsearchparty,artifactinfo  set progress = '$currentSearchParty->progress' where currentsearchparty.id = '$currentSearchParty->id' AND (select isactive from artifactinfo where artifactinfo.id= currentsearchparty.artifactid) = 1");

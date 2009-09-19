@@ -53,7 +53,12 @@ class GameService {
 
         
     }
-
+    /**
+     *
+     * @param <GameProgress> $gameProgress
+     * @return <Array>
+     *
+     */
     public function getSpyQuestions($gameProgress){
         $user=$_SESSION['loggedin_user'];
 
@@ -101,6 +106,12 @@ class GameService {
 
     }
 
+    /**
+     *
+     * @param <Array> $answers
+     * @param <GameProgress> $gameProgress
+     * @return <GameResponse>
+     */
     public function grantSpyProgress($answers,$gameProgress){
          //$answers=array();
          $gameResponse=new GameProgressResponse();
@@ -164,6 +175,11 @@ class GameService {
 
     }
 
+    /**
+     *
+     * @param <GameProgress> $gameProgress
+     * @return <GameResponse>
+     */
     public function grantScoutProgress($gameProgress){
          $gameResponse=new GameProgressResponse();
          settype($gameProgress,"object");
@@ -221,7 +237,11 @@ class GameService {
          return $gameResponse;
     }
 
-
+    /**
+     *
+     * @param <GameProgress> $gameProgress
+     * @return <GameResponse>
+     */
     public function grantBuyProgress($gameProgress){
         $gameResponse=new GameProgressResponse();
         settype($gameProgress,"object");
@@ -285,6 +305,11 @@ class GameService {
 
     }
 
+    /**
+     *
+     * @param <GameProgress> $gameProgress
+     * @return <GameResponse>
+     */
     public function grantShareProgress($gameProgress){
          $gameResponse=new GameProgressResponse();
          settype($gameProgress,"object");

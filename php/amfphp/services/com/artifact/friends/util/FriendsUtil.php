@@ -12,6 +12,11 @@
 class FriendsUtil {
     //put your code here
 
+    /**
+     *
+     * @param <User> $user
+     * @return <Array>
+     */
     public function getFriends(User $user){
         $friendDAO=new FriendsDAO();
         return $friendDAO->getAllFriends($user);

@@ -11,7 +11,12 @@
  */
 class UserProfileDAO {
     //put your code here
-
+    /**
+     *
+     * @param <User> $user
+     * @return <UserProfile>
+     * @SQL Select * From userprofile Where userid=1
+     */
     public function getUserProfile(User $user){
         $con = Connection::createConnection();
         $result = mysql_query("Select * From userprofile Where userid=$user->id");
@@ -34,7 +39,16 @@ class UserProfileDAO {
         Connection::closeConnection($con);
         return $userprofile;
     }
-    //SELECT globallevel from experience where exp > 2000 limit 1
+    
+    /**
+     *
+     * @param <GameProfile> $gameProfile
+     * @param <int> $expPoints
+     * @return <GameProfile>
+     * @SQL update gameprofile set exp = 100 where userid = 1
+     * @SQL SELECT globallevel from experience where exp > 2000 limit 1
+     * @SQL update gameprofile set globallvl = 1 where userid = 1
+     */
     public function giveExperience($gameProfile,$expPoints){
         $con = Connection::createConnection();
         $user=$gameProfile->user;
@@ -61,6 +75,13 @@ class UserProfileDAO {
         
     }
     //update gameprofile set spylvl=spylvl+1 where globallvl > spylvl+scoutlvl+buylvl + sharelvl AND userid =1
+    /**
+     *
+     * @param <String> $columnName
+     * @param <GameProfile> $gameProfile
+     * @return <Boolean>
+     * @SQL update gameprofile set spylvl=spylvl+1 where globallvl > spylvl+scoutlvl+buylvl+sharelvl AND userid =1
+     */
     public function addSkill($columnName,$gameProfile){
         $con = Connection::createConnection();
         $user=$gameProfile->user;

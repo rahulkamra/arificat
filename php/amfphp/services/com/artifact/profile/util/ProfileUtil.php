@@ -12,6 +12,12 @@
 class ProfileUtil {
     //put your code here
 
+    /**
+     *
+     * @param <GameProfile> $userProfile
+     * @param <int> $expPoints
+     * @return <GameProfile>
+     */
     public function giveExperience($userProfile,$expPoints){
         $userProfileDAO=new UserProfileDAO;
         $updatedProfile=$userProfileDAO->giveExperience($currentSearchParty,$expPoints);
