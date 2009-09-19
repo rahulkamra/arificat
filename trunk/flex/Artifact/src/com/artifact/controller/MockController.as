@@ -17,7 +17,7 @@ package com.artifact.controller
 		
 		/**
 		 * This class is used to mock the data when the backend is not present
-		 * 
+		 * This was just for testing , now using right now
 		 * 
 		 **/ 
 		public static function getFriendsList():ArrayCollection{

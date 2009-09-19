@@ -12,6 +12,10 @@ package com.artifact.controller
 	import mx.controls.Alert;
 	import mx.utils.ObjectUtil;
 	
+	/**
+	 * This class take care of the ui iteraction and it knows when to hit the server side and when to display the cached data
+	 * 
+	 **/
 	public class ArtifactUIController
 	{
 		public function ArtifactUIController()
