@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2009 at 11:06 AM
+-- Generation Time: Sep 20, 2009 at 06:50 AM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.5
 
@@ -58,16 +58,12 @@ CREATE TABLE IF NOT EXISTS `currentsearchparty` (
   PRIMARY KEY  (`id`),
   KEY `FK_currentsearchparty_1` (`userid`),
   KEY `FK_currentsearchparty_2` (`artifactid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `currentsearchparty`
 --
 
-INSERT INTO `currentsearchparty` (`id`, `userid`, `artifactid`, `artifactlvl`, `progress`) VALUES
-(1, 4, 1, 1, 99),
-(2, 2, 1, 1, 0),
-(3, 4, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -102,26 +98,6 @@ INSERT INTO `experience` (`globallevel`, `exp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `friendmapping`
---
-
-CREATE TABLE IF NOT EXISTS `friendmapping` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `userid` int(10) unsigned NOT NULL default '0',
-  `friendid` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `FK_friendmapping_1` (`userid`),
-  KEY `FK_friendmapping_2` (`friendid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `friendmapping`
---
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `gameprofile`
 --
 
@@ -145,12 +121,12 @@ CREATE TABLE IF NOT EXISTS `gameprofile` (
 
 INSERT INTO `gameprofile` (`id`, `userid`, `gold`, `exp`, `globallvl`, `spylvl`, `scoutlvl`, `sharelvl`, `buylvl`) VALUES
 (1, 1, 0, 0, 1, 1, 0, 0, 0),
-(2, 2, 0, 0, 1, 1, 0, 0, 0),
+(2, 2, 0, 2300, 5, 5, 0, 0, 0),
 (3, 3, 0, 0, 1, 1, 0, 0, 0),
-(4, 4, 1000, 0, 1, 1, 1, 0, 1),
+(4, 4, 0, 0, 1, 1, 0, 0, 0),
 (5, 5, 0, 0, 1, 1, 0, 0, 0),
-(6, 6, 0, 0, 1, 1, 0, 0, 0),
-(7, 7, 0, 0, 1, 1, 0, 0, 0);
+(6, 6, 2000, 3500, 6, 3, 1, 1, 1),
+(7, 7, 0, 7500, 11, 1, 4, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -167,14 +143,12 @@ CREATE TABLE IF NOT EXISTS `gameprogress` (
   KEY `FK_gameprogress_1` (`friendid`),
   KEY `FK_gameprogress_2` (`cspid`),
   KEY `FK_gameprogress_3` (`progresstypeid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `gameprogress`
 --
 
-INSERT INTO `gameprogress` (`id`, `cspid`, `friendid`, `progresstypeid`) VALUES
-(1, 1, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -295,13 +269,6 @@ INSERT INTO `userprofile` (`id`, `userid`, `age`, `politicalview`, `religion`, `
 ALTER TABLE `currentsearchparty`
   ADD CONSTRAINT `FK_currentsearchparty_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK_currentsearchparty_2` FOREIGN KEY (`artifactid`) REFERENCES `artifactinfo` (`id`);
-
---
--- Constraints for table `friendmapping`
---
-ALTER TABLE `friendmapping`
-  ADD CONSTRAINT `FK_friendmapping_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `FK_friendmapping_2` FOREIGN KEY (`friendid`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `gameprofile`
